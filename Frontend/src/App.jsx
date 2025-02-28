@@ -6,6 +6,37 @@ function App() {
   const editorRef = useRef(null);
   const consolaRef = useRef(null);
 
+  async function sendCode(dataEditor) {
+    try {
+      const response = await fetch('http://localhost:5239/Compilador', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(dataEditor),
+      });
+  
+      if (!response.ok) {
+        throw new Error('Error en la petición');
+      }
+  
+      const result = await response.json();
+      const output = Array.isArray(result.result) 
+        ? result.result.join("\n") 
+        : result.result;  
+
+      if (consolaRef.current) {
+        consolaRef.current.setValue(output);
+      }
+
+      
+
+    } catch (error) {
+      console.log(error);
+      consolaRef.current.setValue(`Error: ${error.message}`); 
+    }
+  }
+
   function handleEditorDidMount(editor, id) {
     if (id === 'editor') {
       editorRef.current = editor;
@@ -19,7 +50,8 @@ function App() {
   };
 
   const interpretar = () => {
-    alert('Interpretar');
+    const code = editorRef.current.getValue(); 
+    sendCode({ Code: code });
   };
 
   const obtenerAST = () => {
