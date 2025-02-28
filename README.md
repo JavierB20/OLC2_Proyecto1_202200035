@@ -1,4 +1,4 @@
-#OLC2 Proyecto 1
+# OLC2 Proyecto 1
 
-##Nombre: Jose Javier Bonilla Salazar
-##Carnet: 202200035
+## Nombre: Jose Javier Bonilla Salazar
+## Carnet: 202200035
