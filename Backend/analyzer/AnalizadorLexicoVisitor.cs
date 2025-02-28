@@ -83,20 +83,6 @@ public interface IAnalizadorLexicoVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <return>The visitor result.</return>
 	Result VisitInstruccion_if([NotNull] AnalizadorLexicoParser.Instruccion_ifContext context);
 	/// <summary>
-	/// Visit a parse tree produced by the <c>boleanExpresion</c>
-	/// labeled alternative in <see cref="AnalizadorLexicoParser.expr"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	/// <return>The visitor result.</return>
-	Result VisitBoleanExpresion([NotNull] AnalizadorLexicoParser.BoleanExpresionContext context);
-	/// <summary>
-	/// Visit a parse tree produced by the <c>cadenaExpresion</c>
-	/// labeled alternative in <see cref="AnalizadorLexicoParser.expr"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	/// <return>The visitor result.</return>
-	Result VisitCadenaExpresion([NotNull] AnalizadorLexicoParser.CadenaExpresionContext context);
-	/// <summary>
 	/// Visit a parse tree produced by the <c>operadorLogico</c>
 	/// labeled alternative in <see cref="AnalizadorLexicoParser.expr"/>.
 	/// </summary>
@@ -111,40 +97,12 @@ public interface IAnalizadorLexicoVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <return>The visitor result.</return>
 	Result VisitExpreParentesis([NotNull] AnalizadorLexicoParser.ExpreParentesisContext context);
 	/// <summary>
-	/// Visit a parse tree produced by the <c>multiplicacionYdivision</c>
-	/// labeled alternative in <see cref="AnalizadorLexicoParser.expr"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	/// <return>The visitor result.</return>
-	Result VisitMultiplicacionYdivision([NotNull] AnalizadorLexicoParser.MultiplicacionYdivisionContext context);
-	/// <summary>
-	/// Visit a parse tree produced by the <c>intExpresion</c>
-	/// labeled alternative in <see cref="AnalizadorLexicoParser.expr"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	/// <return>The visitor result.</return>
-	Result VisitIntExpresion([NotNull] AnalizadorLexicoParser.IntExpresionContext context);
-	/// <summary>
 	/// Visit a parse tree produced by the <c>idExpresion</c>
 	/// labeled alternative in <see cref="AnalizadorLexicoParser.expr"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	Result VisitIdExpresion([NotNull] AnalizadorLexicoParser.IdExpresionContext context);
-	/// <summary>
-	/// Visit a parse tree produced by the <c>operadorRelacional</c>
-	/// labeled alternative in <see cref="AnalizadorLexicoParser.expr"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	/// <return>The visitor result.</return>
-	Result VisitOperadorRelacional([NotNull] AnalizadorLexicoParser.OperadorRelacionalContext context);
-	/// <summary>
-	/// Visit a parse tree produced by the <c>sumaYresta</c>
-	/// labeled alternative in <see cref="AnalizadorLexicoParser.expr"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	/// <return>The visitor result.</return>
-	Result VisitSumaYresta([NotNull] AnalizadorLexicoParser.SumaYrestaContext context);
 	/// <summary>
 	/// Visit a parse tree produced by the <c>operadorNegacion</c>
 	/// labeled alternative in <see cref="AnalizadorLexicoParser.expr"/>.
@@ -166,5 +124,54 @@ public interface IAnalizadorLexicoVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	Result VisitDecimalExpresion([NotNull] AnalizadorLexicoParser.DecimalExpresionContext context);
+	/// <summary>
+	/// Visit a parse tree produced by the <c>boleanExpresion</c>
+	/// labeled alternative in <see cref="AnalizadorLexicoParser.expr"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitBoleanExpresion([NotNull] AnalizadorLexicoParser.BoleanExpresionContext context);
+	/// <summary>
+	/// Visit a parse tree produced by the <c>cadenaExpresion</c>
+	/// labeled alternative in <see cref="AnalizadorLexicoParser.expr"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitCadenaExpresion([NotNull] AnalizadorLexicoParser.CadenaExpresionContext context);
+	/// <summary>
+	/// Visit a parse tree produced by the <c>multiplicacionYdivision</c>
+	/// labeled alternative in <see cref="AnalizadorLexicoParser.expr"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitMultiplicacionYdivision([NotNull] AnalizadorLexicoParser.MultiplicacionYdivisionContext context);
+	/// <summary>
+	/// Visit a parse tree produced by the <c>intExpresion</c>
+	/// labeled alternative in <see cref="AnalizadorLexicoParser.expr"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitIntExpresion([NotNull] AnalizadorLexicoParser.IntExpresionContext context);
+	/// <summary>
+	/// Visit a parse tree produced by the <c>operadorRelacional</c>
+	/// labeled alternative in <see cref="AnalizadorLexicoParser.expr"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitOperadorRelacional([NotNull] AnalizadorLexicoParser.OperadorRelacionalContext context);
+	/// <summary>
+	/// Visit a parse tree produced by the <c>sumaYresta</c>
+	/// labeled alternative in <see cref="AnalizadorLexicoParser.expr"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitSumaYresta([NotNull] AnalizadorLexicoParser.SumaYrestaContext context);
+	/// <summary>
+	/// Visit a parse tree produced by the <c>modulo</c>
+	/// labeled alternative in <see cref="AnalizadorLexicoParser.expr"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitModulo([NotNull] AnalizadorLexicoParser.ModuloContext context);
 }
 } // namespace analyzer

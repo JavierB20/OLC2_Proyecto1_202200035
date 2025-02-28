@@ -137,34 +137,6 @@ public partial class AnalizadorLexicoBaseListener : IAnalizadorLexicoListener {
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitInstruccion_if([NotNull] AnalizadorLexicoParser.Instruccion_ifContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by the <c>boleanExpresion</c>
-	/// labeled alternative in <see cref="AnalizadorLexicoParser.expr"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void EnterBoleanExpresion([NotNull] AnalizadorLexicoParser.BoleanExpresionContext context) { }
-	/// <summary>
-	/// Exit a parse tree produced by the <c>boleanExpresion</c>
-	/// labeled alternative in <see cref="AnalizadorLexicoParser.expr"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void ExitBoleanExpresion([NotNull] AnalizadorLexicoParser.BoleanExpresionContext context) { }
-	/// <summary>
-	/// Enter a parse tree produced by the <c>cadenaExpresion</c>
-	/// labeled alternative in <see cref="AnalizadorLexicoParser.expr"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void EnterCadenaExpresion([NotNull] AnalizadorLexicoParser.CadenaExpresionContext context) { }
-	/// <summary>
-	/// Exit a parse tree produced by the <c>cadenaExpresion</c>
-	/// labeled alternative in <see cref="AnalizadorLexicoParser.expr"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void ExitCadenaExpresion([NotNull] AnalizadorLexicoParser.CadenaExpresionContext context) { }
-	/// <summary>
 	/// Enter a parse tree produced by the <c>operadorLogico</c>
 	/// labeled alternative in <see cref="AnalizadorLexicoParser.expr"/>.
 	/// <para>The default implementation does nothing.</para>
@@ -193,34 +165,6 @@ public partial class AnalizadorLexicoBaseListener : IAnalizadorLexicoListener {
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitExpreParentesis([NotNull] AnalizadorLexicoParser.ExpreParentesisContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by the <c>multiplicacionYdivision</c>
-	/// labeled alternative in <see cref="AnalizadorLexicoParser.expr"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void EnterMultiplicacionYdivision([NotNull] AnalizadorLexicoParser.MultiplicacionYdivisionContext context) { }
-	/// <summary>
-	/// Exit a parse tree produced by the <c>multiplicacionYdivision</c>
-	/// labeled alternative in <see cref="AnalizadorLexicoParser.expr"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void ExitMultiplicacionYdivision([NotNull] AnalizadorLexicoParser.MultiplicacionYdivisionContext context) { }
-	/// <summary>
-	/// Enter a parse tree produced by the <c>intExpresion</c>
-	/// labeled alternative in <see cref="AnalizadorLexicoParser.expr"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void EnterIntExpresion([NotNull] AnalizadorLexicoParser.IntExpresionContext context) { }
-	/// <summary>
-	/// Exit a parse tree produced by the <c>intExpresion</c>
-	/// labeled alternative in <see cref="AnalizadorLexicoParser.expr"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void ExitIntExpresion([NotNull] AnalizadorLexicoParser.IntExpresionContext context) { }
-	/// <summary>
 	/// Enter a parse tree produced by the <c>idExpresion</c>
 	/// labeled alternative in <see cref="AnalizadorLexicoParser.expr"/>.
 	/// <para>The default implementation does nothing.</para>
@@ -234,34 +178,6 @@ public partial class AnalizadorLexicoBaseListener : IAnalizadorLexicoListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitIdExpresion([NotNull] AnalizadorLexicoParser.IdExpresionContext context) { }
-	/// <summary>
-	/// Enter a parse tree produced by the <c>operadorRelacional</c>
-	/// labeled alternative in <see cref="AnalizadorLexicoParser.expr"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void EnterOperadorRelacional([NotNull] AnalizadorLexicoParser.OperadorRelacionalContext context) { }
-	/// <summary>
-	/// Exit a parse tree produced by the <c>operadorRelacional</c>
-	/// labeled alternative in <see cref="AnalizadorLexicoParser.expr"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void ExitOperadorRelacional([NotNull] AnalizadorLexicoParser.OperadorRelacionalContext context) { }
-	/// <summary>
-	/// Enter a parse tree produced by the <c>sumaYresta</c>
-	/// labeled alternative in <see cref="AnalizadorLexicoParser.expr"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void EnterSumaYresta([NotNull] AnalizadorLexicoParser.SumaYrestaContext context) { }
-	/// <summary>
-	/// Exit a parse tree produced by the <c>sumaYresta</c>
-	/// labeled alternative in <see cref="AnalizadorLexicoParser.expr"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void ExitSumaYresta([NotNull] AnalizadorLexicoParser.SumaYrestaContext context) { }
 	/// <summary>
 	/// Enter a parse tree produced by the <c>operadorNegacion</c>
 	/// labeled alternative in <see cref="AnalizadorLexicoParser.expr"/>.
@@ -304,6 +220,104 @@ public partial class AnalizadorLexicoBaseListener : IAnalizadorLexicoListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitDecimalExpresion([NotNull] AnalizadorLexicoParser.DecimalExpresionContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by the <c>boleanExpresion</c>
+	/// labeled alternative in <see cref="AnalizadorLexicoParser.expr"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterBoleanExpresion([NotNull] AnalizadorLexicoParser.BoleanExpresionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>boleanExpresion</c>
+	/// labeled alternative in <see cref="AnalizadorLexicoParser.expr"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitBoleanExpresion([NotNull] AnalizadorLexicoParser.BoleanExpresionContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by the <c>cadenaExpresion</c>
+	/// labeled alternative in <see cref="AnalizadorLexicoParser.expr"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterCadenaExpresion([NotNull] AnalizadorLexicoParser.CadenaExpresionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>cadenaExpresion</c>
+	/// labeled alternative in <see cref="AnalizadorLexicoParser.expr"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitCadenaExpresion([NotNull] AnalizadorLexicoParser.CadenaExpresionContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by the <c>multiplicacionYdivision</c>
+	/// labeled alternative in <see cref="AnalizadorLexicoParser.expr"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterMultiplicacionYdivision([NotNull] AnalizadorLexicoParser.MultiplicacionYdivisionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>multiplicacionYdivision</c>
+	/// labeled alternative in <see cref="AnalizadorLexicoParser.expr"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitMultiplicacionYdivision([NotNull] AnalizadorLexicoParser.MultiplicacionYdivisionContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by the <c>intExpresion</c>
+	/// labeled alternative in <see cref="AnalizadorLexicoParser.expr"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterIntExpresion([NotNull] AnalizadorLexicoParser.IntExpresionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>intExpresion</c>
+	/// labeled alternative in <see cref="AnalizadorLexicoParser.expr"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitIntExpresion([NotNull] AnalizadorLexicoParser.IntExpresionContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by the <c>operadorRelacional</c>
+	/// labeled alternative in <see cref="AnalizadorLexicoParser.expr"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterOperadorRelacional([NotNull] AnalizadorLexicoParser.OperadorRelacionalContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>operadorRelacional</c>
+	/// labeled alternative in <see cref="AnalizadorLexicoParser.expr"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitOperadorRelacional([NotNull] AnalizadorLexicoParser.OperadorRelacionalContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by the <c>sumaYresta</c>
+	/// labeled alternative in <see cref="AnalizadorLexicoParser.expr"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterSumaYresta([NotNull] AnalizadorLexicoParser.SumaYrestaContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>sumaYresta</c>
+	/// labeled alternative in <see cref="AnalizadorLexicoParser.expr"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitSumaYresta([NotNull] AnalizadorLexicoParser.SumaYrestaContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by the <c>modulo</c>
+	/// labeled alternative in <see cref="AnalizadorLexicoParser.expr"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterModulo([NotNull] AnalizadorLexicoParser.ModuloContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>modulo</c>
+	/// labeled alternative in <see cref="AnalizadorLexicoParser.expr"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitModulo([NotNull] AnalizadorLexicoParser.ModuloContext context) { }
 
 	/// <inheritdoc/>
 	/// <remarks>The default implementation does nothing.</remarks>

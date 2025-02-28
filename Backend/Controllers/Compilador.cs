@@ -46,12 +46,18 @@ namespace Backend.Controllers
             var listaTokens = new CommonTokenStream(analisisLexico);
             var analisiSintactico = new AnalizadorLexicoParser(listaTokens);
             
+            //Errores
+            // var errorListener = new MyErrorListener();
+            // analisiSintactico.RemoveErrorListeners(); 
+            // analisiSintactico.AddErrorListener(errorListener);
+
             var arbol = analisiSintactico.inicio();
             
             EntornoDTO entornoInicial = new EntornoDTO("Primero", null);        
             Visitor visitor = new Visitor(entornoInicial);
-            
             visitor.Visit(arbol);
+
+            // Console.WriteLine(string.Join("\n", errorListener.Errores));
 
             return Ok(new { result = visitor.listaSalida });
         }

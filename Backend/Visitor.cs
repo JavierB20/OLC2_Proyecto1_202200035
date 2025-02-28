@@ -1,3 +1,4 @@
+using System.Globalization;
 using System.Net;
 using System.Text.RegularExpressions;
 using analyzer;
@@ -75,7 +76,7 @@ class Visitor : AnalizadorLexicoBaseVisitor<Object> {
         return int.Parse(context.INT().GetText()); 
     }
     public override Object VisitDecimalExpresion([NotNull] AnalizadorLexicoParser.DecimalExpresionContext context) {
-        return float.Parse(context.DECIMAL().GetText());
+        return double.Parse(context.DECIMAL().GetText(), CultureInfo.InvariantCulture);
     }
     //FIN DATOS PRIMITIVOS
 
@@ -148,35 +149,67 @@ class Visitor : AnalizadorLexicoBaseVisitor<Object> {
     }
 
     /* EXPRESIONES */
+    //OPERACIONES ARITMETICAS
     public override Object VisitMultiplicacionYdivision([NotNull] AnalizadorLexicoParser.MultiplicacionYdivisionContext context) {
         string operador = context.GetChild(1).GetText();
-        int left = (int) Visit(context.expr(0));
-        int rigth = (int) Visit(context.expr(1));
-        if (operador == "*") {
-            Console.WriteLine(left + " * " + rigth);
-            Console.WriteLine(left * rigth);
-            return left * rigth;
-        } else if (operador == "/") {
-            Console.WriteLine(left + " / " + rigth);
-            Console.WriteLine(left / rigth);
-            return left / rigth;
+        var left = Visit(context.expr(0));
+        var rigth = Visit(context.expr(1));
+
+        if (left is int && rigth is int) {
+            return operador == "*" ? (int)left * (int)rigth : (int)left / (int)rigth;
         }
+
+        if (left is double && rigth is double) {
+            return operador == "*" ? (double)left * (double)rigth : (double)left / (double)rigth;
+        }
+
+        if ((left is double || left is int) && (rigth is double || rigth is int)) {
+            double leftValue = Convert.ToDouble(left);
+            double rigthValue = Convert.ToDouble(rigth);
+            double resultado = operador == "*" ? leftValue * rigthValue : leftValue / rigthValue;
+            return resultado;
+        }
+
         return "-999999999999999999";
     }
 
     public override Object VisitSumaYresta([NotNull] AnalizadorLexicoParser.SumaYrestaContext context) {
         string operador = context.GetChild(1).GetText();
-        int left = (int) Visit(context.expr(0));
-        int rigth = (int) Visit(context.expr(1));
-        if (operador == "+") {
-            return left + rigth;
-        } else if (operador == "-") {
-            Console.WriteLine(left + " - " + rigth);
-            return left - rigth;
+        var left =  Visit(context.expr(0));
+        var right = Visit(context.expr(1));
+        
+        if (left is int && right is int) {
+            return operador == "+" ? (int)left + (int)right : (int)left - (int)right;
         }
-        return -999999999999999999;
-    }
+        
+        if (left is string && right is string && operador == "+") {
+            return (string)left + (string)right;
+        }
 
+        if (left is double && right is double) {
+            double resultado = operador == "+" ? (double)left + (double)right : (double)left - (double)right;
+            return resultado;
+        }
+
+        if ((left is double || left is int) && (right is double || right is int)) {
+            double leftValue = Convert.ToDouble(left);
+            double rightValue = Convert.ToDouble(right);
+            double resultado = operador == "+" ? leftValue + rightValue : leftValue - rightValue;
+            return resultado;
+        }
+
+        return -9999999999;
+    }
+   
+    public override Object VisitModulo([NotNull] AnalizadorLexicoParser.ModuloContext context){
+        var left = Visit(context.expr(0));
+        var right = Visit(context.expr(1));
+        if (left is int && right is int) {
+            return (int)left % (int)right;
+        }
+        return -9999999999;
+    }
+    //FIN OPERACIONES ARITMETICAS
     public override Object VisitExpreParentesis(AnalizadorLexicoParser.ExpreParentesisContext context) {
         Console.WriteLine("Encontro expresion en parentesis");
         return Visit(context.expr());

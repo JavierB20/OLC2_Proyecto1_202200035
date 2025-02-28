@@ -54,6 +54,7 @@ expr: '(' expr ')' #expreParentesis
 
 | expr ('*'|'/') expr #multiplicacionYdivision
 | expr ('+'|'-') expr #sumaYresta
+| expr ('%') expr #modulo
 
 | left=expr operador='&&' right=expr #operadorLogico
 | left=expr operador='||' right=expr #operadorLogico
