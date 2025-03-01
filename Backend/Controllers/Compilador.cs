@@ -10,7 +10,6 @@ using Antlr4.Runtime.Tree;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
-
 namespace Backend.Controllers
 {
     [Route("[controller]")]
@@ -37,30 +36,55 @@ namespace Backend.Controllers
                 return BadRequest(ModelState);
             }
 
+            List<ErrorInfo> allErrors = new List<ErrorInfo>();
             var inputStream = new AntlrInputStream(request.Code);
 
-            //Analisis lexico
+            // Setup error listeners for lexical and syntax errors
+            var customErrorListener = new CustomErrorListener();
+
+            // Análisis léxico
             var analisisLexico = new AnalizadorLexicoLexer(inputStream);
+            analisisLexico.RemoveErrorListeners();
+            analisisLexico.AddErrorListener(customErrorListener);
             
-            //Analisis sintactico
+            // Análisis sintáctico
             var listaTokens = new CommonTokenStream(analisisLexico);
             var analisiSintactico = new AnalizadorLexicoParser(listaTokens);
-            
-            //Errores
-            // var errorListener = new MyErrorListener();
-            // analisiSintactico.RemoveErrorListeners(); 
-            // analisiSintactico.AddErrorListener(errorListener);
+            analisiSintactico.RemoveErrorListeners();
+            analisiSintactico.AddErrorListener(customErrorListener);
 
-            var arbol = analisiSintactico.inicio();
-            
-            EntornoDTO entornoInicial = new EntornoDTO("Primero", null);        
-            Visitor visitor = new Visitor(entornoInicial);
-            visitor.Visit(arbol);
+            try
+            {
+                // Parsing and visiting
+                var arbol = analisiSintactico.inicio();
+                
+                EntornoDTO entornoInicial = new EntornoDTO("Primero", null);        
+                Visitor visitor = new Visitor(entornoInicial);
+                visitor.Visit(arbol);
 
-            // Console.WriteLine(string.Join("\n", errorListener.Errores));
+                // Collect all types of errors
+                allErrors.AddRange(customErrorListener.Errores); // Lexical and syntactical errors
+                allErrors.AddRange(visitor.erroresSemanticos);   // Semantic errors
 
-            return Ok(new { result = visitor.listaSalida });
+                // Return both the output and the errors
+                return Ok(new { 
+                    result = visitor.listaSalida,
+                    errors = allErrors
+                });
+            }
+            catch (Exception ex)
+            {
+                // In case of catastrophic failure
+                allErrors.Add(new ErrorInfo(
+                    $"Error crítico: {ex.Message}",
+                    0, 0, "Sistema"
+                ));
+
+                return Ok(new { 
+                    result = new List<object>() { $"Error crítico: {ex.Message}" },
+                    errors = allErrors
+                });
+            }
         }
-
     }
 }

@@ -25,12 +25,15 @@ function App() {
         ? result.result.join("\n") 
         : result.result;  
 
+      const errors = Array.isArray(result.errors) 
+      ? result.errors.map(err => 
+          `${err.descripcion} en línea ${err.linea}, columna ${err.columna}: ${err.Descripcion}`
+        ).join("\n") 
+      : result.errors;
+
       if (consolaRef.current) {
-        consolaRef.current.setValue(output);
+        consolaRef.current.setValue(output + "\n\n" + errors);
       }
-
-      
-
     } catch (error) {
       console.log(error);
       consolaRef.current.setValue(`Error: ${error.message}`); 
