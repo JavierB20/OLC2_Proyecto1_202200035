@@ -18,6 +18,8 @@ IGUAL: '=' ;
 DOSPUNTOS_IGUAL: ':=' ;
 PARENTESIS_ABRE: '(' ;
 PARENTESIS_CIERRA: ')' ;
+ASIGNACION_SUMA: '+=' ;
+ASIGNACION_RESTA: '-=' ;
 
 inicio: listainstrucciones ;
 
@@ -33,7 +35,8 @@ print: 'fmt.Println' PARENTESIS_ABRE expr PARENTESIS_CIERRA ;
 
 variables: 'var' PALABRA tipo (IGUAL expr)? #declaracionVar ;
 
-asignacion: PALABRA signo=(IGUAL | DOSPUNTOS_IGUAL) expr #asignacionVar ;
+asignacion: PALABRA signo=(IGUAL | DOSPUNTOS_IGUAL | ASIGNACION_SUMA | ASIGNACION_RESTA) expr #asignacionVar ;
+
 
 tipo: 'int'
 | 'float64'

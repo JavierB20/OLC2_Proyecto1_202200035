@@ -129,11 +129,58 @@ class Visitor : AnalizadorLexicoBaseVisitor<Object> {
             }
         } else if (signo == "=") {
             entorno.actualizarValorSimbolo(nombreVariable, valor);
+        } else if (signo == "+=") {
+            var left = valor;
+            var right = entorno.buscarVariable(nombreVariable).valor;
+
+                if (left is int && right is int) {
+                    int valorActualizado = (int)left + (int)right;
+                    entorno.actualizarValorSimbolo(nombreVariable, valorActualizado);
+                }
+                
+                if (left is string && right is string) {
+                    string valorActualizado = (string)left + (string)right;
+                    entorno.actualizarValorSimbolo(nombreVariable, valorActualizado);
+                }
+
+                if (left is double && right is double) {
+                    double valorActualizado = (double)left + (double)right;
+                    entorno.actualizarValorSimbolo(nombreVariable, valorActualizado);
+                }
+
+                if ((left is double || left is int) && (right is double || right is int)) {
+                    double leftValue = Convert.ToDouble(left);
+                    double rightValue = Convert.ToDouble(right);
+                    double valorActualizado = leftValue + rightValue;
+                    entorno.actualizarValorSimbolo(nombreVariable, valorActualizado);
+                }
+
+        } else if (signo == "-=") {
+            var left = valor;
+            var right = entorno.buscarVariable(nombreVariable).valor;
+
+                if (left is int && right is int) {
+                    int valorActualizado = (int)left + (int)right;
+                    entorno.actualizarValorSimbolo(nombreVariable, valorActualizado);
+                }
+                
+                if (left is double && right is double) {
+                    double valorActualizado = (double)left + (double)right;
+                    entorno.actualizarValorSimbolo(nombreVariable, valorActualizado);
+                }
+
+                if ((left is double || left is int) && (right is double || right is int)) {
+                    double leftValue = Convert.ToDouble(left);
+                    double rightValue = Convert.ToDouble(right);
+                    double valorActualizado = leftValue + rightValue;
+                    entorno.actualizarValorSimbolo(nombreVariable, valorActualizado);
+                }
         }
         return true;
     }
+
     /*FIN DE VARIABLES*/
-    
+
     /* INSTUCCION IF */
     public override object VisitInstruccion_if([NotNull] AnalizadorLexicoParser.Instruccion_ifContext context) {
         // validar expresion (tiene que existir y ser de tipo bool)
