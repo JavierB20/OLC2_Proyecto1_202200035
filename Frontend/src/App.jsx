@@ -27,7 +27,7 @@ function App() {
 
       const errors = Array.isArray(result.errors) 
       ? result.errors.map(err => 
-          `${err.descripcion} en línea ${err.linea}, columna ${err.columna}: ${err.Descripcion}`
+          `${err.descripcion} en línea ${err.linea}, columna ${err.columna}: ${err.tipo}`
         ).join("\n") 
       : result.errors;
 
