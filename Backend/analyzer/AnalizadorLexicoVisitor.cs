@@ -139,6 +139,13 @@ public interface IAnalizadorLexicoVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <return>The visitor result.</return>
 	Result VisitCadenaExpresion([NotNull] AnalizadorLexicoParser.CadenaExpresionContext context);
 	/// <summary>
+	/// Visit a parse tree produced by the <c>expreCorchetes</c>
+	/// labeled alternative in <see cref="AnalizadorLexicoParser.expr"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitExpreCorchetes([NotNull] AnalizadorLexicoParser.ExpreCorchetesContext context);
+	/// <summary>
 	/// Visit a parse tree produced by the <c>multiplicacionYdivision</c>
 	/// labeled alternative in <see cref="AnalizadorLexicoParser.expr"/>.
 	/// </summary>
@@ -159,6 +166,13 @@ public interface IAnalizadorLexicoVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	Result VisitOperadorRelacional([NotNull] AnalizadorLexicoParser.OperadorRelacionalContext context);
+	/// <summary>
+	/// Visit a parse tree produced by the <c>operadorNegativo</c>
+	/// labeled alternative in <see cref="AnalizadorLexicoParser.expr"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitOperadorNegativo([NotNull] AnalizadorLexicoParser.OperadorNegativoContext context);
 	/// <summary>
 	/// Visit a parse tree produced by the <c>sumaYresta</c>
 	/// labeled alternative in <see cref="AnalizadorLexicoParser.expr"/>.

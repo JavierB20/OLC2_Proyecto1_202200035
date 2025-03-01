@@ -212,6 +212,18 @@ public interface IAnalizadorLexicoListener : IParseTreeListener {
 	/// <param name="context">The parse tree.</param>
 	void ExitCadenaExpresion([NotNull] AnalizadorLexicoParser.CadenaExpresionContext context);
 	/// <summary>
+	/// Enter a parse tree produced by the <c>expreCorchetes</c>
+	/// labeled alternative in <see cref="AnalizadorLexicoParser.expr"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterExpreCorchetes([NotNull] AnalizadorLexicoParser.ExpreCorchetesContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>expreCorchetes</c>
+	/// labeled alternative in <see cref="AnalizadorLexicoParser.expr"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitExpreCorchetes([NotNull] AnalizadorLexicoParser.ExpreCorchetesContext context);
+	/// <summary>
 	/// Enter a parse tree produced by the <c>multiplicacionYdivision</c>
 	/// labeled alternative in <see cref="AnalizadorLexicoParser.expr"/>.
 	/// </summary>
@@ -247,6 +259,18 @@ public interface IAnalizadorLexicoListener : IParseTreeListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	void ExitOperadorRelacional([NotNull] AnalizadorLexicoParser.OperadorRelacionalContext context);
+	/// <summary>
+	/// Enter a parse tree produced by the <c>operadorNegativo</c>
+	/// labeled alternative in <see cref="AnalizadorLexicoParser.expr"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterOperadorNegativo([NotNull] AnalizadorLexicoParser.OperadorNegativoContext context);
+	/// <summary>
+	/// Exit a parse tree produced by the <c>operadorNegativo</c>
+	/// labeled alternative in <see cref="AnalizadorLexicoParser.expr"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitOperadorNegativo([NotNull] AnalizadorLexicoParser.OperadorNegativoContext context);
 	/// <summary>
 	/// Enter a parse tree produced by the <c>sumaYresta</c>
 	/// labeled alternative in <see cref="AnalizadorLexicoParser.expr"/>.

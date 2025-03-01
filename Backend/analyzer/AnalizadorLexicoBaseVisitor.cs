@@ -206,6 +206,17 @@ public partial class AnalizadorLexicoBaseVisitor<Result> : AbstractParseTreeVisi
 	/// <return>The visitor result.</return>
 	public virtual Result VisitCadenaExpresion([NotNull] AnalizadorLexicoParser.CadenaExpresionContext context) { return VisitChildren(context); }
 	/// <summary>
+	/// Visit a parse tree produced by the <c>expreCorchetes</c>
+	/// labeled alternative in <see cref="AnalizadorLexicoParser.expr"/>.
+	/// <para>
+	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
+	/// on <paramref name="context"/>.
+	/// </para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	public virtual Result VisitExpreCorchetes([NotNull] AnalizadorLexicoParser.ExpreCorchetesContext context) { return VisitChildren(context); }
+	/// <summary>
 	/// Visit a parse tree produced by the <c>multiplicacionYdivision</c>
 	/// labeled alternative in <see cref="AnalizadorLexicoParser.expr"/>.
 	/// <para>
@@ -238,6 +249,17 @@ public partial class AnalizadorLexicoBaseVisitor<Result> : AbstractParseTreeVisi
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	public virtual Result VisitOperadorRelacional([NotNull] AnalizadorLexicoParser.OperadorRelacionalContext context) { return VisitChildren(context); }
+	/// <summary>
+	/// Visit a parse tree produced by the <c>operadorNegativo</c>
+	/// labeled alternative in <see cref="AnalizadorLexicoParser.expr"/>.
+	/// <para>
+	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
+	/// on <paramref name="context"/>.
+	/// </para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	public virtual Result VisitOperadorNegativo([NotNull] AnalizadorLexicoParser.OperadorNegativoContext context) { return VisitChildren(context); }
 	/// <summary>
 	/// Visit a parse tree produced by the <c>sumaYresta</c>
 	/// labeled alternative in <see cref="AnalizadorLexicoParser.expr"/>.

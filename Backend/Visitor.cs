@@ -90,6 +90,7 @@ class Visitor : AnalizadorLexicoBaseVisitor<Object> {
         return true;
     }
 
+
     /* VARIABLES*/
     //DECLARACION
     public override Object VisitDeclaracionVar([NotNull] AnalizadorLexicoParser.DeclaracionVarContext context) {
@@ -109,7 +110,6 @@ class Visitor : AnalizadorLexicoBaseVisitor<Object> {
         }
         return true;//new BreakDTO("continue");
     }
-
     //ASIGNACION
     public override Object VisitAsignacionVar([NotNull] AnalizadorLexicoParser.AsignacionVarContext context) {
         EntornoDTO entorno = pilaEntornos.Peek();
@@ -160,26 +160,26 @@ class Visitor : AnalizadorLexicoBaseVisitor<Object> {
             var right = entorno.buscarVariable(nombreVariable).valor;
 
                 if (left is int && right is int) {
-                    int valorActualizado = (int)left + (int)right;
+                    int valorActualizado = (int)right - (int)left;
                     entorno.actualizarValorSimbolo(nombreVariable, valorActualizado);
                 }
                 
                 if (left is double && right is double) {
-                    double valorActualizado = (double)left + (double)right;
+                    double valorActualizado = (double)right - (double)left;
                     entorno.actualizarValorSimbolo(nombreVariable, valorActualizado);
                 }
 
                 if ((left is double || left is int) && (right is double || right is int)) {
                     double leftValue = Convert.ToDouble(left);
                     double rightValue = Convert.ToDouble(right);
-                    double valorActualizado = leftValue + rightValue;
+                    double valorActualizado = rightValue - leftValue;
                     entorno.actualizarValorSimbolo(nombreVariable, valorActualizado);
                 }
         }
         return true;
     }
-
     /*FIN DE VARIABLES*/
+
 
     /* INSTUCCION IF */
     public override object VisitInstruccion_if([NotNull] AnalizadorLexicoParser.Instruccion_ifContext context) {
@@ -195,7 +195,7 @@ class Visitor : AnalizadorLexicoBaseVisitor<Object> {
         return "";
     }
 
-    /* EXPRESIONES */
+
     //OPERACIONES ARITMETICAS
     public override Object VisitMultiplicacionYdivision([NotNull] AnalizadorLexicoParser.MultiplicacionYdivisionContext context) {
         string operador = context.GetChild(1).GetText();
@@ -254,25 +254,43 @@ class Visitor : AnalizadorLexicoBaseVisitor<Object> {
         if (left is int && right is int) {
             return (int)left % (int)right;
         }
-        return -9999999999;
+        return "Error Semantico NO es valido ese modulo";
+    }
+
+    public override Object VisitOperadorNegativo([NotNull] AnalizadorLexicoParser.OperadorNegativoContext context) {
+        var number = Visit(context.right);
+        if (number is int) {
+            return -1 * (int)number;
+        }
+        if (number is double) {
+            return -1 * (double)number;
+        }
+
+        return -99999999999;
     }
     //FIN OPERACIONES ARITMETICAS
-    public override Object VisitExpreParentesis(AnalizadorLexicoParser.ExpreParentesisContext context) {
-        Console.WriteLine("Encontro expresion en parentesis");
-        return Visit(context.expr());
+
+
+    //OPERACIONES RELACIONALES  
+    public override Object VisitOperadorRelacional([NotNull] AnalizadorLexicoParser.OperadorRelacionalContext context) {
+        string operador = context.GetChild(1).GetText();
+        dynamic left = Visit(context.left);
+        dynamic right = Visit(context.right);
+
+        return operador switch {
+            "==" => left == right,
+            "!=" => left != right,
+            ">"  => left > right,
+            ">=" => left >= right,
+            "<"  => left < right,
+            "<=" => left <= right,
+            _ => throw new Exception("Operador relacional no reconocido: " + operador)
+        };
     }
-
-    public override Object VisitIdExpresion([NotNull] AnalizadorLexicoParser.IdExpresionContext context) {
-        EntornoDTO entorno = pilaEntornos.Peek();
-        SimbolosDTO? simbolo = entorno.buscarVariable(context.PALABRA().GetText());
-        if (simbolo != null)  {
-            return simbolo.valor;
-        } 
-        return "NULL";
-    }
+    //FIN OPERACIONES RELACIONALES
 
 
-
+    //OPERACIONES LOGICAS
     public override Object VisitOperadorLogico([NotNull] AnalizadorLexicoParser.OperadorLogicoContext context) {
         string operador = context.GetChild(1).GetText();
         dynamic left = Visit(context.left);
@@ -291,22 +309,18 @@ class Visitor : AnalizadorLexicoBaseVisitor<Object> {
         else 
             return true;
     }
+    //FIN OPERACIONES LOGICAS
 
-    public override Object VisitOperadorRelacional([NotNull] AnalizadorLexicoParser.OperadorRelacionalContext context) {
-        string operador = context.GetChild(1).GetText();
-        dynamic left = Visit(context.left);
-        dynamic right = Visit(context.right);
 
-        return operador switch {
-            "==" => left == right,
-            "!=" => left != right,
-            ">"  => left > right,
-            ">=" => left >= right,
-            "<"  => left < right,
-            "<=" => left <= right,
-            _ => throw new Exception("Operador relacional no reconocido: " + operador)
-        };
+    public override Object VisitExpreParentesis(AnalizadorLexicoParser.ExpreParentesisContext context) {
+        Console.WriteLine("Encontro expresion en parentesis");
+        return Visit(context.expr());
     }
+
+    public override Object VisitExpreCorchetes(AnalizadorLexicoParser.ExpreCorchetesContext context) {
+        return Visit(context.expr());
+    }
+
 
     //AUXILIARES
     public Object ValorPorDefecto(string tipo) {
@@ -319,7 +333,14 @@ class Visitor : AnalizadorLexicoBaseVisitor<Object> {
             _ => throw new Exception("Tipo desconocido")
         };
     }
-
+    public override Object VisitIdExpresion([NotNull] AnalizadorLexicoParser.IdExpresionContext context) {
+        EntornoDTO entorno = pilaEntornos.Peek();
+        SimbolosDTO? simbolo = entorno.buscarVariable(context.PALABRA().GetText());
+        if (simbolo != null)  {
+            return simbolo.valor;
+        } 
+        return "NULL";
+    }
     public bool TipoCompatible(string tipo, object valor){
         return tipo switch {
             "int" => valor is int,

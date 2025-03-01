@@ -48,6 +48,10 @@ tipo: 'int'
 instruccion_if: 'if' PARENTESIS_ABRE expr PARENTESIS_CIERRA 'then' listainstrucciones 'end if';
 
 expr: '(' expr ')' #expreParentesis
+|'[' expr ']' #expreCorchetes
+
+| '-' right=expr #operadorNegativo
+
 | INT #intExpresion
 | DECIMAL #decimalExpresion
 | CARACTER #caracterExpresion
