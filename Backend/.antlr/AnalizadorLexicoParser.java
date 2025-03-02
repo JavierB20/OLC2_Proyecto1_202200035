@@ -313,6 +313,9 @@ public class AnalizadorLexicoParser extends Parser {
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class DeclaracionVarContext extends VariablesContext {
+		public Token identificador;
+		public TipoContext tipoVar;
+		public ExprContext valor;
 		public TerminalNode ID() { return getToken(AnalizadorLexicoParser.ID, 0); }
 		public TipoContext tipo() {
 			return getRuleContext(TipoContext.class,0);
@@ -335,9 +338,9 @@ public class AnalizadorLexicoParser extends Parser {
 			setState(38);
 			match(T__1);
 			setState(39);
-			match(ID);
+			((DeclaracionVarContext)_localctx).identificador = match(ID);
 			setState(40);
-			tipo();
+			((DeclaracionVarContext)_localctx).tipoVar = tipo();
 			setState(43);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
@@ -346,7 +349,7 @@ public class AnalizadorLexicoParser extends Parser {
 				setState(41);
 				match(IGUAL);
 				setState(42);
-				expr(0);
+				((DeclaracionVarContext)_localctx).valor = expr(0);
 				}
 			}
 

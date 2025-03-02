@@ -75,10 +75,10 @@ namespace Backend.Expresiones
             var tipo2 = operando2.Tipo;
             
             switch(tipo1) {
-                case TipoDato.BOOLEANO:
+                case TipoDato.BOOL:
                     switch(tipo2) {
-                        case TipoDato.BOOLEANO:
-                            return new Nativo(Convert.ToBoolean(operando1.Valor) == Convert.ToBoolean(operando2.Valor), TipoDato.BOOLEANO, operando1.Linea, operando1.Columna);
+                        case TipoDato.BOOL:
+                            return new Nativo(Convert.ToBoolean(operando1.Valor) == Convert.ToBoolean(operando2.Valor), TipoDato.BOOL, operando1.Linea, operando1.Columna);
                         default:
                             throw new Exception("Tipo de igualacion de booleano no soportada");
                     }
@@ -92,10 +92,10 @@ namespace Backend.Expresiones
             var tipo2 = operando2.Tipo;
             
             switch(tipo1) {
-                case TipoDato.BOOLEANO:
+                case TipoDato.BOOL:
                     switch(tipo2) {
-                        case TipoDato.BOOLEANO:
-                            return new Nativo(Convert.ToBoolean(operando1.Valor) || Convert.ToBoolean(operando2.Valor), TipoDato.BOOLEANO, operando1.Linea, operando1.Columna);
+                        case TipoDato.BOOL:
+                            return new Nativo(Convert.ToBoolean(operando1.Valor) || Convert.ToBoolean(operando2.Valor), TipoDato.BOOL, operando1.Linea, operando1.Columna);
                         default:
                             throw new Exception("Tipo de or de booleano no soportada");
                     }
@@ -108,8 +108,8 @@ namespace Backend.Expresiones
             var tipo1 = operando1.Tipo;
             
             switch(tipo1) {
-                case TipoDato.BOOLEANO:
-                    return new Nativo(!Convert.ToBoolean(operando1.Valor), TipoDato.BOOLEANO, operando1.Linea, operando1.Columna);
+                case TipoDato.BOOL:
+                    return new Nativo(!Convert.ToBoolean(operando1.Valor), TipoDato.BOOL, operando1.Linea, operando1.Columna);
                 default:
                     throw new Exception("Tipo de not no soportada");
             }

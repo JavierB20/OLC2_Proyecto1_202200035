@@ -80,28 +80,28 @@ namespace Backend.Expresiones
             var tipo2 = operando2.Tipo;
             
             switch(tipo1) {
-                case TipoDato.ENTERO:
+                case TipoDato.INT:
                     switch(tipo2) {
-                        case TipoDato.ENTERO:
-                            return new Nativo(Convert.ToInt32(operando1.Valor) + Convert.ToInt32(operando2.Valor), TipoDato.ENTERO, operando1.Linea, operando1.Columna);
-                        case TipoDato.DECIMAL:
-                            return new Nativo(Convert.ToDecimal(operando1.Valor) + Convert.ToDecimal(operando2.Valor), TipoDato.DECIMAL, operando1.Linea, operando1.Columna);
+                        case TipoDato.INT:
+                            return new Nativo(Convert.ToInt32(operando1.Valor) + Convert.ToInt32(operando2.Valor), TipoDato.INT, operando1.Linea, operando1.Columna);
+                        case TipoDato.FLOAT64:
+                            return new Nativo(Convert.ToDecimal(operando1.Valor) + Convert.ToDecimal(operando2.Valor), TipoDato.FLOAT64, operando1.Linea, operando1.Columna);
                         default:
-                            throw new Exception("Tipo de suma entero no soportada");
+                            throw new Exception("Tipo de suma INT no soportada");
                     }
-                case TipoDato.DECIMAL:
+                case TipoDato.FLOAT64:
                     switch(tipo2) {
-                        case TipoDato.ENTERO:
-                            return new Nativo(Convert.ToDecimal(operando1.Valor) + Convert.ToDecimal(operando2.Valor), TipoDato.DECIMAL, operando1.Linea, operando1.Columna);
-                        case TipoDato.DECIMAL:
-                            return new Nativo(Convert.ToDecimal(operando1.Valor) + Convert.ToDecimal(operando2.Valor), TipoDato.DECIMAL, operando1.Linea, operando1.Columna);
+                        case TipoDato.INT:
+                            return new Nativo(Convert.ToDecimal(operando1.Valor) + Convert.ToDecimal(operando2.Valor), TipoDato.FLOAT64, operando1.Linea, operando1.Columna);
+                        case TipoDato.FLOAT64:
+                            return new Nativo(Convert.ToDecimal(operando1.Valor) + Convert.ToDecimal(operando2.Valor), TipoDato.FLOAT64, operando1.Linea, operando1.Columna);
                         default:
                             throw new Exception("Tipo de suma flotante no soportada");
                     }
-                case TipoDato.CADENA:
+                case TipoDato.STRING:
                     switch(tipo2) {
-                        case TipoDato.CADENA:
-                            return new Nativo(operando1.Valor.ToString() + operando2.Valor.ToString(), TipoDato.CADENA, operando1.Linea, operando1.Columna);
+                        case TipoDato.STRING:
+                            return new Nativo(operando1.Valor.ToString() + operando2.Valor.ToString(), TipoDato.STRING, operando1.Linea, operando1.Columna);
                         default:
                             throw new Exception("Tipo de suma cadena no soportada");
                     }
@@ -115,21 +115,21 @@ namespace Backend.Expresiones
             var tipo2 = operando2.Tipo;
             
             switch(tipo1) {
-                case TipoDato.ENTERO:
+                case TipoDato.INT:
                     switch(tipo2) {
-                        case TipoDato.ENTERO:
-                            return new Nativo(Convert.ToInt32(operando1.Valor) - Convert.ToInt32(operando2.Valor), TipoDato.ENTERO, operando1.Linea, operando1.Columna);
-                        case TipoDato.DECIMAL:
-                            return new Nativo(Convert.ToDecimal(operando1.Valor) - Convert.ToDecimal(operando2.Valor), TipoDato.DECIMAL, operando1.Linea, operando1.Columna);
+                        case TipoDato.INT:
+                            return new Nativo(Convert.ToInt32(operando1.Valor) - Convert.ToInt32(operando2.Valor), TipoDato.INT, operando1.Linea, operando1.Columna);
+                        case TipoDato.FLOAT64:
+                            return new Nativo(Convert.ToDecimal(operando1.Valor) - Convert.ToDecimal(operando2.Valor), TipoDato.FLOAT64, operando1.Linea, operando1.Columna);
                         default:
-                            throw new Exception("Tipo de resta entero no soportada");
+                            throw new Exception("Tipo de resta INT no soportada");
                     }
-                case TipoDato.DECIMAL:
+                case TipoDato.FLOAT64:
                     switch(tipo2) {
-                        case TipoDato.ENTERO:
-                            return new Nativo(Convert.ToDecimal(operando1.Valor) - Convert.ToDecimal(operando2.Valor), TipoDato.DECIMAL, operando1.Linea, operando1.Columna);
-                        case TipoDato.DECIMAL:
-                            return new Nativo(Convert.ToDecimal(operando1.Valor) - Convert.ToDecimal(operando2.Valor), TipoDato.DECIMAL, operando1.Linea, operando1.Columna);
+                        case TipoDato.INT:
+                            return new Nativo(Convert.ToDecimal(operando1.Valor) - Convert.ToDecimal(operando2.Valor), TipoDato.FLOAT64, operando1.Linea, operando1.Columna);
+                        case TipoDato.FLOAT64:
+                            return new Nativo(Convert.ToDecimal(operando1.Valor) - Convert.ToDecimal(operando2.Valor), TipoDato.FLOAT64, operando1.Linea, operando1.Columna);
                         default:
                             throw new Exception("Tipo de resta flotante no soportada");
                     }
@@ -143,21 +143,21 @@ namespace Backend.Expresiones
             var tipo2 = operando2.Tipo;
             
             switch(tipo1) {
-                case TipoDato.ENTERO:
+                case TipoDato.INT:
                     switch(tipo2) {
-                        case TipoDato.ENTERO:
-                            return new Nativo(Convert.ToInt32(operando1.Valor) * Convert.ToInt32(operando2.Valor), TipoDato.ENTERO, operando1.Linea, operando1.Columna);
-                        case TipoDato.DECIMAL:
-                            return new Nativo(Convert.ToDecimal(operando1.Valor) * Convert.ToDecimal(operando2.Valor), TipoDato.DECIMAL, operando1.Linea, operando1.Columna);
+                        case TipoDato.INT:
+                            return new Nativo(Convert.ToInt32(operando1.Valor) * Convert.ToInt32(operando2.Valor), TipoDato.INT, operando1.Linea, operando1.Columna);
+                        case TipoDato.FLOAT64:
+                            return new Nativo(Convert.ToDecimal(operando1.Valor) * Convert.ToDecimal(operando2.Valor), TipoDato.FLOAT64, operando1.Linea, operando1.Columna);
                         default:
-                            throw new Exception("Tipo de multiplicacion entero no soportada");
+                            throw new Exception("Tipo de multiplicacion INT no soportada");
                     }
-                case TipoDato.DECIMAL:
+                case TipoDato.FLOAT64:
                     switch(tipo2) {
-                        case TipoDato.ENTERO:
-                            return new Nativo(Convert.ToDecimal(operando1.Valor) - Convert.ToDecimal(operando2.Valor), TipoDato.DECIMAL, operando1.Linea, operando1.Columna);
-                        case TipoDato.DECIMAL:
-                            return new Nativo(Convert.ToDecimal(operando1.Valor) - Convert.ToDecimal(operando2.Valor), TipoDato.DECIMAL, operando1.Linea, operando1.Columna);
+                        case TipoDato.INT:
+                            return new Nativo(Convert.ToDecimal(operando1.Valor) - Convert.ToDecimal(operando2.Valor), TipoDato.FLOAT64, operando1.Linea, operando1.Columna);
+                        case TipoDato.FLOAT64:
+                            return new Nativo(Convert.ToDecimal(operando1.Valor) - Convert.ToDecimal(operando2.Valor), TipoDato.FLOAT64, operando1.Linea, operando1.Columna);
                         default:
                             throw new Exception("Tipo de multiplicacion flotante no soportada");
                     }
@@ -171,21 +171,21 @@ namespace Backend.Expresiones
             var tipo2 = operando2.Tipo;
             
             switch(tipo1) {
-                case TipoDato.ENTERO:
+                case TipoDato.INT:
                     switch(tipo2) {
-                        case TipoDato.ENTERO:
-                            return new Nativo(Convert.ToInt32(operando1.Valor) / Convert.ToInt32(operando2.Valor), TipoDato.ENTERO, operando1.Linea, operando1.Columna);
-                        case TipoDato.DECIMAL:
-                            return new Nativo(Convert.ToDecimal(operando1.Valor) / Convert.ToDecimal(operando2.Valor), TipoDato.DECIMAL, operando1.Linea, operando1.Columna);
+                        case TipoDato.INT:
+                            return new Nativo(Convert.ToInt32(operando1.Valor) / Convert.ToInt32(operando2.Valor), TipoDato.INT, operando1.Linea, operando1.Columna);
+                        case TipoDato.FLOAT64:
+                            return new Nativo(Convert.ToDecimal(operando1.Valor) / Convert.ToDecimal(operando2.Valor), TipoDato.FLOAT64, operando1.Linea, operando1.Columna);
                         default:
-                            throw new Exception("Tipo de division entero no soportada");
+                            throw new Exception("Tipo de division INT no soportada");
                     }
-                case TipoDato.DECIMAL:
+                case TipoDato.FLOAT64:
                     switch(tipo2) {
-                        case TipoDato.ENTERO:
-                            return new Nativo(Convert.ToDecimal(operando1.Valor) / Convert.ToDecimal(operando2.Valor), TipoDato.DECIMAL, operando1.Linea, operando1.Columna);
-                        case TipoDato.DECIMAL:
-                            return new Nativo(Convert.ToDecimal(operando1.Valor) / Convert.ToDecimal(operando2.Valor), TipoDato.DECIMAL, operando1.Linea, operando1.Columna);
+                        case TipoDato.INT:
+                            return new Nativo(Convert.ToDecimal(operando1.Valor) / Convert.ToDecimal(operando2.Valor), TipoDato.FLOAT64, operando1.Linea, operando1.Columna);
+                        case TipoDato.FLOAT64:
+                            return new Nativo(Convert.ToDecimal(operando1.Valor) / Convert.ToDecimal(operando2.Valor), TipoDato.FLOAT64, operando1.Linea, operando1.Columna);
                         default:
                             throw new Exception("Tipo de division flotante no soportada");
                     }
@@ -199,12 +199,12 @@ namespace Backend.Expresiones
             var tipo2 = operando2.Tipo;
             
             switch(tipo1) {
-                case TipoDato.ENTERO:
+                case TipoDato.INT:
                     switch(tipo2) {
-                        case TipoDato.ENTERO:
-                            return new Nativo(Convert.ToInt32(operando1.Valor) % Convert.ToInt32(operando2.Valor), TipoDato.ENTERO, operando1.Linea, operando1.Columna);
+                        case TipoDato.INT:
+                            return new Nativo(Convert.ToInt32(operando1.Valor) % Convert.ToInt32(operando2.Valor), TipoDato.INT, operando1.Linea, operando1.Columna);
                         default:
-                            throw new Exception("Tipo de modulo entero no soportada");
+                            throw new Exception("Tipo de modulo INT no soportada");
                     }
                 default:
                     throw new Exception("Tipo de modulo no soportada");
@@ -215,10 +215,10 @@ namespace Backend.Expresiones
                 var tipo1 = operando1.Tipo;
                 
                 switch(tipo1) {
-                    case TipoDato.ENTERO:
-                        return new Nativo(-1 * Convert.ToInt32(operando1.Valor), TipoDato.ENTERO, operando1.Linea, operando1.Columna);
-                    case TipoDato.DECIMAL:
-                        return new Nativo(-1 * Convert.ToDecimal(operando1.Valor), TipoDato.DECIMAL, operando1.Linea, operando1.Columna);
+                    case TipoDato.INT:
+                        return new Nativo(-1 * Convert.ToInt32(operando1.Valor), TipoDato.INT, operando1.Linea, operando1.Columna);
+                    case TipoDato.FLOAT64:
+                        return new Nativo(-1 * Convert.ToDecimal(operando1.Valor), TipoDato.FLOAT64, operando1.Linea, operando1.Columna);
                     default:
                         throw new Exception("Tipo de negacion no soportada");
                 }

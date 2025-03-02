@@ -24,10 +24,10 @@ namespace Backend.Expresiones
 
 public enum TipoDato
 {
-    ENTERO,
-    DECIMAL,
-    BOOLEANO,
-    CADENA,
+    INT,
+    FLOAT64,
+    BOOL,
+    STRING,
     NULO,
     RUNE
 }

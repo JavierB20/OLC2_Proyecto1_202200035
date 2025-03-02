@@ -374,6 +374,9 @@ public partial class AnalizadorLexicoParser : Parser {
 		}
 	}
 	public partial class DeclaracionVarContext : VariablesContext {
+		public IToken identificador;
+		public TipoContext tipoVar;
+		public ExprContext valor;
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode ID() { return GetToken(AnalizadorLexicoParser.ID, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public TipoContext tipo() {
 			return GetRuleContext<TipoContext>(0);
@@ -413,9 +416,9 @@ public partial class AnalizadorLexicoParser : Parser {
 			State = 38;
 			Match(T__1);
 			State = 39;
-			Match(ID);
+			((DeclaracionVarContext)_localctx).identificador = Match(ID);
 			State = 40;
-			tipo();
+			((DeclaracionVarContext)_localctx).tipoVar = tipo();
 			State = 43;
 			ErrorHandler.Sync(this);
 			_la = TokenStream.LA(1);
@@ -424,7 +427,7 @@ public partial class AnalizadorLexicoParser : Parser {
 				State = 41;
 				Match(IGUAL);
 				State = 42;
-				expr(0);
+				((DeclaracionVarContext)_localctx).valor = expr(0);
 				}
 			}
 

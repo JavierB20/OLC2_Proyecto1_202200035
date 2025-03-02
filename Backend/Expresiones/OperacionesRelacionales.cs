@@ -60,42 +60,42 @@ namespace Backend.Expresiones
             var tipo2 = operando2.Tipo;
             
             switch(tipo1) {
-                case TipoDato.ENTERO:
+                case TipoDato.INT:
                     switch(tipo2) {
-                        case TipoDato.ENTERO:
-                            return new Nativo(Convert.ToInt32(operando1.Valor) == Convert.ToInt32(operando2.Valor), TipoDato.BOOLEANO, operando1.Linea, operando1.Columna);
-                        case TipoDato.DECIMAL:
-                            return new Nativo(Convert.ToDecimal(operando1.Valor) == Convert.ToDecimal(operando2.Valor), TipoDato.BOOLEANO, operando1.Linea, operando1.Columna);
+                        case TipoDato.INT:
+                            return new Nativo(Convert.ToInt32(operando1.Valor) == Convert.ToInt32(operando2.Valor), TipoDato.BOOL, operando1.Linea, operando1.Columna);
+                        case TipoDato.FLOAT64:
+                            return new Nativo(Convert.ToDecimal(operando1.Valor) == Convert.ToDecimal(operando2.Valor), TipoDato.BOOL, operando1.Linea, operando1.Columna);
                         default:
-                            throw new Exception("Tipo de igualacion entero no soportada");
+                            throw new Exception("Tipo de igualacion INT no soportada");
                     }
-                case TipoDato.DECIMAL:
+                case TipoDato.FLOAT64:
                     switch(tipo2) {
-                        case TipoDato.ENTERO:
-                            return new Nativo(Convert.ToDecimal(operando1.Valor) == Convert.ToDecimal(operando2.Valor), TipoDato.BOOLEANO, operando1.Linea, operando1.Columna);
-                        case TipoDato.DECIMAL:
-                            return new Nativo(Convert.ToDecimal(operando1.Valor) == Convert.ToDecimal(operando2.Valor), TipoDato.BOOLEANO, operando1.Linea, operando1.Columna);
+                        case TipoDato.INT:
+                            return new Nativo(Convert.ToDecimal(operando1.Valor) == Convert.ToDecimal(operando2.Valor), TipoDato.BOOL, operando1.Linea, operando1.Columna);
+                        case TipoDato.FLOAT64:
+                            return new Nativo(Convert.ToDecimal(operando1.Valor) == Convert.ToDecimal(operando2.Valor), TipoDato.BOOL, operando1.Linea, operando1.Columna);
                         default:
                             throw new Exception("Tipo de igualacion flotante no soportada");
                     }
-                case TipoDato.BOOLEANO:
+                case TipoDato.BOOL:
                     switch(tipo2) {
-                        case TipoDato.BOOLEANO:
-                            return new Nativo(Convert.ToBoolean(operando1.Valor) == Convert.ToBoolean(operando2.Valor), TipoDato.BOOLEANO, operando1.Linea, operando1.Columna);
+                        case TipoDato.BOOL:
+                            return new Nativo(Convert.ToBoolean(operando1.Valor) == Convert.ToBoolean(operando2.Valor), TipoDato.BOOL, operando1.Linea, operando1.Columna);
                         default:
                             throw new Exception("Tipo de igualacion booleano no soportada");
                     }
-                case TipoDato.CADENA:
+                case TipoDato.STRING:
                     switch(tipo2) {
-                        case TipoDato.CADENA:
-                            return new Nativo(Convert.ToString(operando1.Valor) == Convert.ToString(operando2.Valor), TipoDato.BOOLEANO, operando1.Linea, operando1.Columna);
+                        case TipoDato.STRING:
+                            return new Nativo(Convert.ToString(operando1.Valor) == Convert.ToString(operando2.Valor), TipoDato.BOOL, operando1.Linea, operando1.Columna);
                         default:
                             throw new Exception("Tipo de igualacion cadena no soportada");
                     }
                 case TipoDato.RUNE:
                     switch(tipo2) {
                         case TipoDato.RUNE:
-                            return new Nativo(Convert.ToChar(operando1.Valor) == Convert.ToChar(operando2.Valor), TipoDato.BOOLEANO, operando1.Linea, operando1.Columna);
+                            return new Nativo(Convert.ToChar(operando1.Valor) == Convert.ToChar(operando2.Valor), TipoDato.BOOL, operando1.Linea, operando1.Columna);
                         default:
                             throw new Exception("Tipo de igualacion rune no soportada");
                     }
@@ -109,42 +109,42 @@ namespace Backend.Expresiones
             var tipo2 = operando2.Tipo;
             
             switch(tipo1) {
-                case TipoDato.ENTERO:
+                case TipoDato.INT:
                     switch(tipo2) {
-                        case TipoDato.ENTERO:
-                            return new Nativo(Convert.ToInt32(operando1.Valor) != Convert.ToInt32(operando2.Valor), TipoDato.BOOLEANO, operando1.Linea, operando1.Columna);
-                        case TipoDato.DECIMAL:
-                            return new Nativo(Convert.ToDecimal(operando1.Valor) != Convert.ToDecimal(operando2.Valor), TipoDato.BOOLEANO, operando1.Linea, operando1.Columna);
+                        case TipoDato.INT:
+                            return new Nativo(Convert.ToInt32(operando1.Valor) != Convert.ToInt32(operando2.Valor), TipoDato.BOOL, operando1.Linea, operando1.Columna);
+                        case TipoDato.FLOAT64:
+                            return new Nativo(Convert.ToDecimal(operando1.Valor) != Convert.ToDecimal(operando2.Valor), TipoDato.BOOL, operando1.Linea, operando1.Columna);
                         default:
-                            throw new Exception("Tipo de negacion entero no soportada");
+                            throw new Exception("Tipo de negacion INT no soportada");
                     }
-                case TipoDato.DECIMAL:
+                case TipoDato.FLOAT64:
                     switch(tipo2) {
-                        case TipoDato.ENTERO:
-                            return new Nativo(Convert.ToDecimal(operando1.Valor) != Convert.ToDecimal(operando2.Valor), TipoDato.BOOLEANO, operando1.Linea, operando1.Columna);
-                        case TipoDato.DECIMAL:
-                            return new Nativo(Convert.ToDecimal(operando1.Valor) != Convert.ToDecimal(operando2.Valor), TipoDato.BOOLEANO, operando1.Linea, operando1.Columna);
+                        case TipoDato.INT:
+                            return new Nativo(Convert.ToDecimal(operando1.Valor) != Convert.ToDecimal(operando2.Valor), TipoDato.BOOL, operando1.Linea, operando1.Columna);
+                        case TipoDato.FLOAT64:
+                            return new Nativo(Convert.ToDecimal(operando1.Valor) != Convert.ToDecimal(operando2.Valor), TipoDato.BOOL, operando1.Linea, operando1.Columna);
                         default:
                             throw new Exception("Tipo de negacion flotante no soportada");
                     }
-                case TipoDato.BOOLEANO:
+                case TipoDato.BOOL:
                     switch(tipo2) {
-                        case TipoDato.BOOLEANO:
-                            return new Nativo(Convert.ToBoolean(operando1.Valor) != Convert.ToBoolean(operando2.Valor), TipoDato.BOOLEANO, operando1.Linea, operando1.Columna);
+                        case TipoDato.BOOL:
+                            return new Nativo(Convert.ToBoolean(operando1.Valor) != Convert.ToBoolean(operando2.Valor), TipoDato.BOOL, operando1.Linea, operando1.Columna);
                         default:
                             throw new Exception("Tipo de negacion booleano no soportada");
                     }
-                case TipoDato.CADENA:
+                case TipoDato.STRING:
                     switch(tipo2) {
-                        case TipoDato.CADENA:
-                            return new Nativo(Convert.ToString(operando1.Valor) != Convert.ToString(operando2.Valor), TipoDato.BOOLEANO, operando1.Linea, operando1.Columna);
+                        case TipoDato.STRING:
+                            return new Nativo(Convert.ToString(operando1.Valor) != Convert.ToString(operando2.Valor), TipoDato.BOOL, operando1.Linea, operando1.Columna);
                         default:
                             throw new Exception("Tipo de negacion cadena no soportada");
                     }
                 case TipoDato.RUNE:
                     switch(tipo2) {
                         case TipoDato.RUNE:
-                            return new Nativo(Convert.ToChar(operando1.Valor) != Convert.ToChar(operando2.Valor), TipoDato.BOOLEANO, operando1.Linea, operando1.Columna);
+                            return new Nativo(Convert.ToChar(operando1.Valor) != Convert.ToChar(operando2.Valor), TipoDato.BOOL, operando1.Linea, operando1.Columna);
                         default:
                             throw new Exception("Tipo de negacion rune no soportada");
                     }
@@ -158,28 +158,28 @@ namespace Backend.Expresiones
             var tipo2 = operando2.Tipo;
             
             switch(tipo1) {
-                case TipoDato.ENTERO:
+                case TipoDato.INT:
                     switch(tipo2) {
-                        case TipoDato.ENTERO:
-                            return new Nativo(Convert.ToInt32(operando1.Valor) < Convert.ToInt32(operando2.Valor), TipoDato.BOOLEANO, operando1.Linea, operando1.Columna);
-                        case TipoDato.DECIMAL:
-                            return new Nativo(Convert.ToDecimal(operando1.Valor) < Convert.ToDecimal(operando2.Valor), TipoDato.BOOLEANO, operando1.Linea, operando1.Columna);
+                        case TipoDato.INT:
+                            return new Nativo(Convert.ToInt32(operando1.Valor) < Convert.ToInt32(operando2.Valor), TipoDato.BOOL, operando1.Linea, operando1.Columna);
+                        case TipoDato.FLOAT64:
+                            return new Nativo(Convert.ToDecimal(operando1.Valor) < Convert.ToDecimal(operando2.Valor), TipoDato.BOOL, operando1.Linea, operando1.Columna);
                         default:
-                            throw new Exception("Tipo de menor que entero no soportada");
+                            throw new Exception("Tipo de menor que INT no soportada");
                     }
-                case TipoDato.DECIMAL:
+                case TipoDato.FLOAT64:
                     switch(tipo2) {
-                        case TipoDato.ENTERO:
-                            return new Nativo(Convert.ToDecimal(operando1.Valor) < Convert.ToDecimal(operando2.Valor), TipoDato.BOOLEANO, operando1.Linea, operando1.Columna);
-                        case TipoDato.DECIMAL:
-                            return new Nativo(Convert.ToDecimal(operando1.Valor) < Convert.ToDecimal(operando2.Valor), TipoDato.BOOLEANO, operando1.Linea, operando1.Columna);
+                        case TipoDato.INT:
+                            return new Nativo(Convert.ToDecimal(operando1.Valor) < Convert.ToDecimal(operando2.Valor), TipoDato.BOOL, operando1.Linea, operando1.Columna);
+                        case TipoDato.FLOAT64:
+                            return new Nativo(Convert.ToDecimal(operando1.Valor) < Convert.ToDecimal(operando2.Valor), TipoDato.BOOL, operando1.Linea, operando1.Columna);
                         default:
                             throw new Exception("Tipo de menor que flotante no soportada");
                     }
                 case TipoDato.RUNE:
                     switch(tipo2) {
                         case TipoDato.RUNE:
-                            return new Nativo(Convert.ToChar(operando1.Valor) < Convert.ToChar(operando2.Valor), TipoDato.BOOLEANO, operando1.Linea, operando1.Columna);
+                            return new Nativo(Convert.ToChar(operando1.Valor) < Convert.ToChar(operando2.Valor), TipoDato.BOOL, operando1.Linea, operando1.Columna);
                         default:
                             throw new Exception("Tipo de menor que rune no soportada");
                     }
@@ -193,28 +193,28 @@ namespace Backend.Expresiones
             var tipo2 = operando2.Tipo;
             
             switch(tipo1) {
-                case TipoDato.ENTERO:
+                case TipoDato.INT:
                     switch(tipo2) {
-                        case TipoDato.ENTERO:
-                            return new Nativo(Convert.ToInt32(operando1.Valor) <= Convert.ToInt32(operando2.Valor), TipoDato.BOOLEANO, operando1.Linea, operando1.Columna);
-                        case TipoDato.DECIMAL:
-                            return new Nativo(Convert.ToDecimal(operando1.Valor) <= Convert.ToDecimal(operando2.Valor), TipoDato.BOOLEANO, operando1.Linea, operando1.Columna);
+                        case TipoDato.INT:
+                            return new Nativo(Convert.ToInt32(operando1.Valor) <= Convert.ToInt32(operando2.Valor), TipoDato.BOOL, operando1.Linea, operando1.Columna);
+                        case TipoDato.FLOAT64:
+                            return new Nativo(Convert.ToDecimal(operando1.Valor) <= Convert.ToDecimal(operando2.Valor), TipoDato.BOOL, operando1.Linea, operando1.Columna);
                         default:
-                            throw new Exception("Tipo de menor o igual que entero no soportada");
+                            throw new Exception("Tipo de menor o igual que INT no soportada");
                     }
-                case TipoDato.DECIMAL:
+                case TipoDato.FLOAT64:
                     switch(tipo2) {
-                        case TipoDato.ENTERO:
-                            return new Nativo(Convert.ToDecimal(operando1.Valor) <= Convert.ToDecimal(operando2.Valor), TipoDato.BOOLEANO, operando1.Linea, operando1.Columna);
-                        case TipoDato.DECIMAL:
-                            return new Nativo(Convert.ToDecimal(operando1.Valor) <= Convert.ToDecimal(operando2.Valor), TipoDato.BOOLEANO, operando1.Linea, operando1.Columna);
+                        case TipoDato.INT:
+                            return new Nativo(Convert.ToDecimal(operando1.Valor) <= Convert.ToDecimal(operando2.Valor), TipoDato.BOOL, operando1.Linea, operando1.Columna);
+                        case TipoDato.FLOAT64:
+                            return new Nativo(Convert.ToDecimal(operando1.Valor) <= Convert.ToDecimal(operando2.Valor), TipoDato.BOOL, operando1.Linea, operando1.Columna);
                         default:
                             throw new Exception("Tipo de menor o igual que flotante no soportada");
                     }
                 case TipoDato.RUNE:
                     switch(tipo2) {
                         case TipoDato.RUNE:
-                            return new Nativo(Convert.ToChar(operando1.Valor) <= Convert.ToChar(operando2.Valor), TipoDato.BOOLEANO, operando1.Linea, operando1.Columna);
+                            return new Nativo(Convert.ToChar(operando1.Valor) <= Convert.ToChar(operando2.Valor), TipoDato.BOOL, operando1.Linea, operando1.Columna);
                         default:
                             throw new Exception("Tipo de menor o igual que rune no soportada");
                     }
@@ -228,28 +228,28 @@ namespace Backend.Expresiones
             var tipo2 = operando2.Tipo;
             
             switch(tipo1) {
-                case TipoDato.ENTERO:
+                case TipoDato.INT:
                     switch(tipo2) {
-                        case TipoDato.ENTERO:
-                            return new Nativo(Convert.ToInt32(operando1.Valor) > Convert.ToInt32(operando2.Valor), TipoDato.BOOLEANO, operando1.Linea, operando1.Columna);
-                        case TipoDato.DECIMAL:
-                            return new Nativo(Convert.ToDecimal(operando1.Valor) > Convert.ToDecimal(operando2.Valor), TipoDato.BOOLEANO, operando1.Linea, operando1.Columna);
+                        case TipoDato.INT:
+                            return new Nativo(Convert.ToInt32(operando1.Valor) > Convert.ToInt32(operando2.Valor), TipoDato.BOOL, operando1.Linea, operando1.Columna);
+                        case TipoDato.FLOAT64:
+                            return new Nativo(Convert.ToDecimal(operando1.Valor) > Convert.ToDecimal(operando2.Valor), TipoDato.BOOL, operando1.Linea, operando1.Columna);
                         default:
-                            throw new Exception("Tipo de mayor que entero no soportada");
+                            throw new Exception("Tipo de mayor que INT no soportada");
                     }
-                case TipoDato.DECIMAL:
+                case TipoDato.FLOAT64:
                     switch(tipo2) {
-                        case TipoDato.ENTERO:
-                            return new Nativo(Convert.ToDecimal(operando1.Valor) > Convert.ToDecimal(operando2.Valor), TipoDato.BOOLEANO, operando1.Linea, operando1.Columna);
-                        case TipoDato.DECIMAL:
-                            return new Nativo(Convert.ToDecimal(operando1.Valor) > Convert.ToDecimal(operando2.Valor), TipoDato.BOOLEANO, operando1.Linea, operando1.Columna);
+                        case TipoDato.INT:
+                            return new Nativo(Convert.ToDecimal(operando1.Valor) > Convert.ToDecimal(operando2.Valor), TipoDato.BOOL, operando1.Linea, operando1.Columna);
+                        case TipoDato.FLOAT64:
+                            return new Nativo(Convert.ToDecimal(operando1.Valor) > Convert.ToDecimal(operando2.Valor), TipoDato.BOOL, operando1.Linea, operando1.Columna);
                         default:
                             throw new Exception("Tipo de mayor que flotante no soportada");
                     }
                 case TipoDato.RUNE:
                     switch(tipo2) {
                         case TipoDato.RUNE:
-                            return new Nativo(Convert.ToChar(operando1.Valor) > Convert.ToChar(operando2.Valor), TipoDato.BOOLEANO, operando1.Linea, operando1.Columna);
+                            return new Nativo(Convert.ToChar(operando1.Valor) > Convert.ToChar(operando2.Valor), TipoDato.BOOL, operando1.Linea, operando1.Columna);
                         default:
                             throw new Exception("Tipo de mayor que rune no soportada");
                     }
@@ -263,28 +263,28 @@ namespace Backend.Expresiones
             var tipo2 = operando2.Tipo;
             
             switch(tipo1) {
-                case TipoDato.ENTERO:
+                case TipoDato.INT:
                     switch(tipo2) {
-                        case TipoDato.ENTERO:
-                            return new Nativo(Convert.ToInt32(operando1.Valor) >= Convert.ToInt32(operando2.Valor), TipoDato.BOOLEANO, operando1.Linea, operando1.Columna);
-                        case TipoDato.DECIMAL:
-                            return new Nativo(Convert.ToDecimal(operando1.Valor) >= Convert.ToDecimal(operando2.Valor), TipoDato.BOOLEANO, operando1.Linea, operando1.Columna);
+                        case TipoDato.INT:
+                            return new Nativo(Convert.ToInt32(operando1.Valor) >= Convert.ToInt32(operando2.Valor), TipoDato.BOOL, operando1.Linea, operando1.Columna);
+                        case TipoDato.FLOAT64:
+                            return new Nativo(Convert.ToDecimal(operando1.Valor) >= Convert.ToDecimal(operando2.Valor), TipoDato.BOOL, operando1.Linea, operando1.Columna);
                         default:
-                            throw new Exception("Tipo de mayor o igual que entero no soportada");
+                            throw new Exception("Tipo de mayor o igual que INT no soportada");
                     }
-                case TipoDato.DECIMAL:
+                case TipoDato.FLOAT64:
                     switch(tipo2) {
-                        case TipoDato.ENTERO:
-                            return new Nativo(Convert.ToDecimal(operando1.Valor) >= Convert.ToDecimal(operando2.Valor), TipoDato.BOOLEANO, operando1.Linea, operando1.Columna);
-                        case TipoDato.DECIMAL:
-                            return new Nativo(Convert.ToDecimal(operando1.Valor) >= Convert.ToDecimal(operando2.Valor), TipoDato.BOOLEANO, operando1.Linea, operando1.Columna);
+                        case TipoDato.INT:
+                            return new Nativo(Convert.ToDecimal(operando1.Valor) >= Convert.ToDecimal(operando2.Valor), TipoDato.BOOL, operando1.Linea, operando1.Columna);
+                        case TipoDato.FLOAT64:
+                            return new Nativo(Convert.ToDecimal(operando1.Valor) >= Convert.ToDecimal(operando2.Valor), TipoDato.BOOL, operando1.Linea, operando1.Columna);
                         default:
                             throw new Exception("Tipo de mayor o igual que flotante no soportada");
                     }
                 case TipoDato.RUNE:
                     switch(tipo2) {
                         case TipoDato.RUNE:
-                            return new Nativo(Convert.ToChar(operando1.Valor) >= Convert.ToChar(operando2.Valor), TipoDato.BOOLEANO, operando1.Linea, operando1.Columna);
+                            return new Nativo(Convert.ToChar(operando1.Valor) >= Convert.ToChar(operando2.Valor), TipoDato.BOOL, operando1.Linea, operando1.Columna);
                         default:
                             throw new Exception("Tipo de mayor o igual que rune no soportada");
                     }

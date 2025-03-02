@@ -54,7 +54,7 @@ instruccion: print
 
 print: 'fmt.Println' PARENTESIS_ABRE expr PARENTESIS_CIERRA ;
 
-variables: 'var' ID tipo (IGUAL expr)? #declaracionVar ;
+variables: 'var' identificador=ID tipoVar=tipo (IGUAL valor=expr)? #declaracionVar ;
 
 asignacion: ID signo=(IGUAL | DOSPUNTOS_IGUAL | ASIGNACION_SUMA | ASIGNACION_RESTA) expr #asignacionVar ;
 

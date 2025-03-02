@@ -65,10 +65,10 @@ namespace analyzer
             {
                 if (context.print() != null)
                     Visit(context.print());
-                // else if (context.variables() != null)
-                //     Visit(context.variables());
-                // else if (context.asignacion() != null)
-                //     Visit(context.asignacion());
+                else if (context.variables() != null)
+                    Visit(context.variables());
+                else if (context.asignacion() != null)
+                    Visit(context.asignacion());
                 // else if (context.instruccion_if() != null)
                 //     Visit(context.instruccion_if());
             }
@@ -88,7 +88,7 @@ namespace analyzer
         {
             string rawText = context.GetText().Substring(1, context.GetText().Length - 2);
             string processedText = Regex.Unescape(rawText);
-            return new Nativo(processedText, TipoDato.CADENA, context.Start.Line, context.Start.Column);
+            return new Nativo(processedText, TipoDato.STRING, context.Start.Line, context.Start.Column);
 
 
         }
@@ -102,20 +102,20 @@ namespace analyzer
         public override object VisitBoleanExpresion([NotNull] AnalizadorLexicoParser.BoleanExpresionContext context)
         {
             if (context.BOOL().GetText() == "true")
-                return new Nativo(true, TipoDato.BOOLEANO, context.Start.Line, context.Start.Column);
+                return new Nativo(true, TipoDato.BOOL, context.Start.Line, context.Start.Column);
             else if (context.BOOL().GetText() == "false")
-                return new Nativo(false, TipoDato.BOOLEANO, context.Start.Line, context.Start.Column);
+                return new Nativo(false, TipoDato.BOOL, context.Start.Line, context.Start.Column);
 
             AddSemanticError("Valor booleano no válido", context.Start);
             return false;
         }
         public override Object VisitIntExpresion([NotNull] AnalizadorLexicoParser.IntExpresionContext context)
         {
-            return new Nativo(int.Parse(context.INT().GetText()), TipoDato.ENTERO, context.Start.Line, context.Start.Column);
+            return new Nativo(int.Parse(context.INT().GetText()), TipoDato.INT, context.Start.Line, context.Start.Column);
         }
         public override Object VisitDecimalExpresion([NotNull] AnalizadorLexicoParser.DecimalExpresionContext context)
         {
-            return new Nativo(double.Parse(context.DECIMAL().GetText(), CultureInfo.InvariantCulture), TipoDato.DECIMAL, context.Start.Line, context.Start.Column);
+            return new Nativo(double.Parse(context.DECIMAL().GetText(), CultureInfo.InvariantCulture), TipoDato.FLOAT64, context.Start.Line, context.Start.Column);
         }
         /*FIN DATOS PRIMITIVOS*/
 
@@ -126,8 +126,12 @@ namespace analyzer
             try
             {
                 string operador = context.operador.Text;
-                Nativo left = (Nativo)Visit(context.left);
-                Nativo right = (Nativo)Visit(context.right);
+
+                var leftVisit = Visit(context.left);
+                var rightVisit = Visit(context.right);
+
+                Nativo left = ConvertirANativo(leftVisit, context.Start);
+                Nativo right = ConvertirANativo(rightVisit, context.Start);
 
                 var resultado = OperacionesAritmeticas.RealizarOperacion(
                     operador == "+" ? OperadorAritmetico.SUMA : OperadorAritmetico.RESTA,
@@ -149,8 +153,12 @@ namespace analyzer
             try
             {
                 string operador = context.operador.Text;
-                Nativo left = (Nativo)Visit(context.left);
-                Nativo right = (Nativo)Visit(context.right);
+
+                var leftVisit = Visit(context.left);
+                var rightVisit = Visit(context.right);
+
+                Nativo left = ConvertirANativo(leftVisit, context.Start);
+                Nativo right = ConvertirANativo(rightVisit, context.Start);
 
                 var resultado = OperacionesAritmeticas.RealizarOperacion(
                     operador == "*" ? OperadorAritmetico.MULTIPLICACION : OperadorAritmetico.DIVISION,
@@ -172,8 +180,12 @@ namespace analyzer
             try
             {
                 string operador = context.operador.Text;
-                Nativo left = (Nativo)Visit(context.left);
-                Nativo right = (Nativo)Visit(context.right);
+
+                var leftVisit = Visit(context.left);
+                var rightVisit = Visit(context.right);
+
+                Nativo left = ConvertirANativo(leftVisit, context.Start);
+                Nativo right = ConvertirANativo(rightVisit, context.Start);
 
                 var resultado = OperacionesAritmeticas.RealizarOperacion(
                     OperadorAritmetico.MODULO,
@@ -195,7 +207,10 @@ namespace analyzer
             try
             {
                 string operador = context.operador.Text;
-                Nativo right = (Nativo)Visit(context.right);
+
+                var rightVisit = Visit(context.right);
+
+                Nativo right = ConvertirANativo(rightVisit, context.Start);
 
                 var resultado = OperacionesAritmeticas.RealizarOperacion(
                     OperadorAritmetico.NEGACION,
@@ -219,8 +234,13 @@ namespace analyzer
             try
             {
                 string operador = context.operador.Text;
-                Nativo left = (Nativo)Visit(context.left);
-                Nativo right = (Nativo)Visit(context.right);
+
+                var leftVisit = Visit(context.left);
+                var rightVisit = Visit(context.right);
+
+                Nativo left = ConvertirANativo(leftVisit, context.Start);
+                Nativo right = ConvertirANativo(rightVisit, context.Start);
+                
                 OperadorRelacionales operadorRelacional;
                 
                 switch(operador) {
@@ -270,8 +290,13 @@ namespace analyzer
             try
             {
                 string operador = context.operador.Text;
-                Nativo left = (Nativo)Visit(context.left);
-                Nativo right = (Nativo)Visit(context.right);
+                
+                var leftVisit = Visit(context.left);
+                var rightVisit = Visit(context.right);
+
+                Nativo left = ConvertirANativo(leftVisit, context.Start);
+                Nativo right = ConvertirANativo(rightVisit, context.Start);
+
                 OperadorLogicos operadorLogico;
                 
                 switch(operador) {
@@ -306,7 +331,11 @@ namespace analyzer
             try
             {
                 string operador = context.operador.Text;
-                Nativo right = (Nativo)Visit(context.right);
+
+                var rightVisit = Visit(context.right);
+
+                Nativo right = ConvertirANativo(rightVisit, context.Start);
+
                 OperadorLogicos operadorLogico;
 
                 switch(operador) {
@@ -334,7 +363,267 @@ namespace analyzer
         }
         /*FIN OPERACIONES LOGICAS*/
 
+        /*SIGNOS DE AGRUPACION*/
+        public override Object VisitExpreParentesis(AnalizadorLexicoParser.ExpreParentesisContext context)
+        {
+            try
+            {
+                Console.WriteLine("Encontro expresion en parentesis");
+                return Visit(context.expr());
+            }
+            catch (Exception ex)
+            {
+                AddSemanticError($"Error en expresión entre paréntesis: {ex.Message}", context.Start);
+                return null;
+            }
+        }
+        public override Object VisitExpreCorchetes(AnalizadorLexicoParser.ExpreCorchetesContext context)
+        {
+            try
+            {
+                return Visit(context.expr());
+            }
+            catch (Exception ex)
+            {
+                AddSemanticError($"Error en expresión entre corchetes: {ex.Message}", context.Start);
+                return null;
+            }
+        }
+        /*FIN SIGNOS DE AGRUPACION*/
 
+
+        //VARIABLES
+        /*DECLARACION*/
+        public override Object VisitDeclaracionVar([NotNull] AnalizadorLexicoParser.DeclaracionVarContext context)
+        {
+            try
+            {
+                EntornoDTO entorno = pilaEntornos.Peek();
+                string nombreVariable = context.ID().GetText();
+                string tipoVariable = context.tipo().GetText();
+                Object? valor = null;
+
+                if (!entorno.variables.ContainsKey(nombreVariable))
+                {
+                    if (context.expr() != null)
+                    {
+                        valor = (Nativo)Visit(context.expr());
+
+                        // Permitir únicamente INT en FLOAT64
+                        if (tipoVariable.ToUpper().Equals("FLOAT64") && ((Nativo)valor).Tipo.ToString().Equals("INT"))
+                        {
+                            decimal nuevoValor = Convert.ToDecimal(((Nativo)valor).Valor);
+
+                            var variable = new SimbolosDTO(nombreVariable, tipoVariable, new Nativo(nuevoValor, TipoDato.FLOAT64, context.Start.Line, context.Start.Column));
+                            entorno.guardarVariable(nombreVariable, variable);
+                            Console.WriteLine($"Variable '{nombreVariable}' guardada con valor {nuevoValor}");
+                            return variable;  
+                        }
+
+                        // Validar que sea el mismo tipo
+                        if (tipoVariable.ToUpper() != ((Nativo)valor).Tipo.ToString())
+                        {
+                            AddSemanticError($"Tipo de dato incompatible en asignación a variable '{nombreVariable}'. Se esperaba {tipoVariable}", context.Start);
+                            return null;
+                        }
+
+                        var nuevaVariable = new SimbolosDTO(nombreVariable, tipoVariable, valor);
+                        entorno.guardarVariable(nombreVariable, nuevaVariable);
+                        Console.WriteLine($"Variable '{nombreVariable}' guardada con valor {((Nativo)valor).Valor}");
+
+                        return nuevaVariable;  
+                    }
+                    else
+                    {
+                        valor = ValorPorDefecto(tipoVariable);
+                        
+                        Console.WriteLine("Por defecto tipo" + tipoVariable);
+
+                        Nativo valorPorDefecto = new Nativo(
+                            valor,
+                            tipoVariable switch
+                            {
+                                "int" => TipoDato.INT,
+                                "float64" => TipoDato.FLOAT64,
+                                "string" => TipoDato.STRING,
+                                "bool" => TipoDato.BOOL,
+                                "rune" => TipoDato.RUNE,
+                                _ => throw new Exception($"Tipo de dato no soportado: {tipoVariable}")
+                            },
+                            context.Start.Line,
+                            context.Start.Column
+                        );
+
+                        var nuevaVariable = new SimbolosDTO(nombreVariable, tipoVariable, valorPorDefecto);
+                        entorno.guardarVariable(nombreVariable, nuevaVariable);
+                        Console.WriteLine($"Variable '{nombreVariable}' guardada con valor por defecto {valorPorDefecto}");
+
+                        return nuevaVariable; 
+                    }
+                }
+                else
+                {
+                    AddSemanticError($"Variable '{nombreVariable}' ya ha sido declarada en este ámbito", context.Start);
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                AddSemanticError($"Error en declaración de variable: {ex.Message}", context.Start);
+                return null;
+            }
+        }
+        public override Object VisitIdExpresion([NotNull] AnalizadorLexicoParser.IdExpresionContext context)
+        {
+            EntornoDTO entorno = pilaEntornos.Peek();
+            string variableName = context.ID().GetText();
+            SimbolosDTO? simbolo = entorno.buscarVariable(variableName);
+            
+            if (simbolo != null)
+            {
+                return simbolo.valor;
+            }
+            
+            AddSemanticError($"Variable '{variableName}' no ha sido declarada", context.Start);
+            return "NULL";
+        }
+        public override Object VisitAsignacionVar([NotNull] AnalizadorLexicoParser.AsignacionVarContext context)
+        {
+            try
+            {
+                EntornoDTO entorno = pilaEntornos.Peek();
+                string nombreVariable = context.ID().GetText();
+                string signo = context.signo.Text;
+                Object valor = Visit(context.expr());
+
+                if (valor is SimbolosDTO)
+                {
+                    valor = ((SimbolosDTO)valor).valor;
+                }
+
+                if (valor is Nativo)
+                {
+                    valor = (Nativo)valor;
+                }
+
+                switch (signo)
+                {
+                    case ":=": // Declaración y asignación
+                        if (!entorno.variables.ContainsKey(nombreVariable))
+                        {
+                            // Si no existe, se declara y asigna
+                            entorno.guardarVariable(nombreVariable, new SimbolosDTO(nombreVariable, "int", valor));
+                            Console.WriteLine($"Variable '{nombreVariable}' declarada y asignada con valor: {valor}");
+                        }
+                        else
+                        {
+                            AddSemanticError($"Variable '{nombreVariable}' ya ha sido declarada en este ámbito", context.Start);
+                        }
+                        break;
+
+                    case "=": // Asignación simple
+                        var simbolo = entorno.buscarVariable(nombreVariable);
+                        if (simbolo == null)
+                        {
+                            AddSemanticError($"Variable '{nombreVariable}' no ha sido declarada", context.Start);
+                            return false;
+                        }
+
+                        // Verificar compatibilidad de tipos
+                        if (simbolo.tipo.ToUpper() != ((Nativo)valor).Tipo.ToString())
+                        {
+                            AddSemanticError($"Tipo de dato incompatible en asignación a variable '{nombreVariable}'. Se esperaba {simbolo.tipo}", context.Start);
+                            return false;
+                        }
+
+                        // Actualizar el valor de la variable
+                        entorno.actualizarValorSimbolo(nombreVariable, valor);
+                        Console.WriteLine($"Variable '{nombreVariable}' actualizada con valor: {valor}");
+                        break;
+
+                    case "+=": // Asignación con suma
+                        simbolo = entorno.buscarVariable(nombreVariable);
+                        if (simbolo == null)
+                        {
+                            AddSemanticError($"Variable '{nombreVariable}' no ha sido declarada", context.Start);
+                            return false;
+                        }
+
+                        // Verificar compatibilidad de tipos
+                        if (simbolo.tipo.ToUpper() != ((Nativo)valor).Tipo.ToString())
+                        {
+                            AddSemanticError($"Tipo de dato incompatible en asignación con suma a variable '{nombreVariable}'. Se esperaba {simbolo.tipo}", context.Start);
+                            return false;
+                        }
+
+                        // Realizar la suma
+                        if (simbolo.valor is int && valor is int)
+                        {
+                            int valorActualizado = (int)simbolo.valor + (int)valor;
+                            entorno.actualizarValorSimbolo(nombreVariable, valorActualizado);
+                        }
+                        else if (simbolo.valor is double && valor is double)
+                        {
+                            double valorActualizado = (double)simbolo.valor + (double)valor;
+                            entorno.actualizarValorSimbolo(nombreVariable, valorActualizado);
+                        }
+                        else if (simbolo.valor is string && valor is string)
+                        {
+                            string valorActualizado = (string)simbolo.valor + (string)valor;
+                            entorno.actualizarValorSimbolo(nombreVariable, valorActualizado);
+                        }
+                        else
+                        {
+                            AddSemanticError($"No se puede aplicar el operador += para los tipos de datos de '{nombreVariable}' y la expresión", context.Start);
+                        }
+                        break;
+
+                    case "-=": // Asignación con resta
+                        simbolo = entorno.buscarVariable(nombreVariable);
+                        if (simbolo == null)
+                        {
+                            AddSemanticError($"Variable '{nombreVariable}' no ha sido declarada", context.Start);
+                            return false;
+                        }
+
+                        // Verificar compatibilidad de tipos
+                        if (simbolo.tipo.ToUpper() != ((Nativo)valor).Tipo.ToString())
+                        {
+                            AddSemanticError($"Tipo de dato incompatible en asignación con resta a variable '{nombreVariable}'. Se esperaba {simbolo.tipo}", context.Start);
+                            return false;
+                        }
+
+                        // Realizar la resta
+                        if (simbolo.valor is int && valor is int)
+                        {
+                            int valorActualizado = (int)simbolo.valor - (int)valor;
+                            entorno.actualizarValorSimbolo(nombreVariable, valorActualizado);
+                        }
+                        else if (simbolo.valor is double && valor is double)
+                        {
+                            double valorActualizado = (double)simbolo.valor - (double)valor;
+                            entorno.actualizarValorSimbolo(nombreVariable, valorActualizado);
+                        }
+                        else
+                        {
+                            AddSemanticError($"No se puede aplicar el operador -= para los tipos de datos de '{nombreVariable}' y la expresión", context.Start);
+                        }
+                        break;
+
+                    default:
+                        AddSemanticError($"Operador de asignación no reconocido: {signo}", context.Start);
+                        return false;
+                }
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                AddSemanticError($"Error en asignación de variable: {ex.Message}", context.Start);
+                return false;
+            }
+        }
+/*FIN DE VARIABLES*/
 
         /* IMPRIMIR */
         public override Object VisitPrint([NotNull] AnalizadorLexicoParser.PrintContext context)
@@ -346,6 +635,8 @@ namespace analyzer
                     var resultado = Visit(context.expr());
                     if (resultado is Nativo)
                         listaSalida.Add(((Nativo)resultado).Valor);
+                    else if (resultado is SimbolosDTO)
+                        listaSalida.Add(((SimbolosDTO)resultado).valor);
                     else
                         listaSalida.Add(resultado);
                 }
@@ -358,174 +649,7 @@ namespace analyzer
             }
         }
 
-        // /* VARIABLES*/
-        // //DECLARACION
-        // public override Object VisitDeclaracionVar([NotNull] AnalizadorLexicoParser.DeclaracionVarContext context)
-        // {
-        //     try
-        //     {
-        //         EntornoDTO entorno = pilaEntornos.Peek();
-        //         string nombreVariable = context.PALABRA().GetText();
-        //         string tipoVariable = context.tipo().GetText();
-        //         Object? valor = null;
 
-        //         if (!entorno.variables.ContainsKey(nombreVariable))
-        //         {
-        //             if (context.expr() != null)
-        //             {
-        //                 valor = Visit(context.expr());
-                        
-        //                 // Type compatibility check
-        //                 if (!TipoCompatible(tipoVariable, valor))
-        //                 {
-        //                     AddSemanticError($"Tipo de dato incompatible en asignación a variable '{nombreVariable}'. Se esperaba {tipoVariable}", context.Start);
-        //                     valor = ValorPorDefecto(tipoVariable);
-        //                 }
-        //             }
-        //             else
-        //                 valor = ValorPorDefecto(tipoVariable);
-
-        //             entorno.guardarVariable(nombreVariable, new SimbolosDTO(nombreVariable, tipoVariable, valor));
-        //             Console.WriteLine("Nombre de la variable " + nombreVariable + " valor " + valor);
-        //         }
-        //         else
-        //         {
-        //             AddSemanticError($"Variable '{nombreVariable}' ya ha sido declarada en este ámbito", context.Start);
-        //         }
-        //         return true;
-        //     }
-        //     catch (Exception ex)
-        //     {
-        //         AddSemanticError($"Error en declaración de variable: {ex.Message}", context.Start);
-        //         return false;
-        //     }
-        // }
-
-        // //ASIGNACION
-        // public override Object VisitAsignacionVar([NotNull] AnalizadorLexicoParser.AsignacionVarContext context)
-        // {
-        //     try
-        //     {
-        //         EntornoDTO entorno = pilaEntornos.Peek();
-        //         string nombreVariable = context.PALABRA().GetText();
-        //         string signo = context.GetChild(1).GetText();
-        //         Object valor = Visit(context.expr());
-
-        //         if (signo == ":=")
-        //         {
-        //             if (!entorno.variables.ContainsKey(nombreVariable))
-        //             {
-        //                 if (context.expr() != null)
-        //                     valor = Visit(context.expr());
-
-        //                 entorno.guardarVariable(nombreVariable, new SimbolosDTO(nombreVariable, "int", valor));
-        //                 Console.WriteLine("Nombre de la variable " + nombreVariable + " valor " + valor);
-        //             }
-        //             else
-        //             {
-        //                 AddSemanticError($"Variable '{nombreVariable}' ya ha sido declarada en este ámbito", context.Start);
-        //             }
-        //         }
-        //         else if (signo == "=")
-        //         {
-        //             var simbolo = entorno.buscarVariable(nombreVariable);
-        //             if (simbolo == null)
-        //             {
-        //                 AddSemanticError($"Variable '{nombreVariable}' no ha sido declarada", context.Start);
-        //                 return false;
-        //             }
-                    
-        //             // Type compatibility check
-        //             if (!TipoCompatible(simbolo.tipo, valor))
-        //             {
-        //                 AddSemanticError($"Tipo de dato incompatible en asignación a variable '{nombreVariable}'. Se esperaba {simbolo.tipo}", context.Start);
-        //                 return false;
-        //             }
-                    
-        //             entorno.actualizarValorSimbolo(nombreVariable, valor);
-        //         }
-        //         else if (signo == "+=")
-        //         {
-        //             var simbolo = entorno.buscarVariable(nombreVariable);
-        //             if (simbolo == null)
-        //             {
-        //                 AddSemanticError($"Variable '{nombreVariable}' no ha sido declarada", context.Start);
-        //                 return false;
-        //             }
-                    
-        //             var right = simbolo.valor;
-        //             var left = valor;
-
-        //             if (left is int && right is int)
-        //             {
-        //                 int valorActualizado = (int)left + (int)right;
-        //                 entorno.actualizarValorSimbolo(nombreVariable, valorActualizado);
-        //             }
-        //             else if (left is string && right is string)
-        //             {
-        //                 string valorActualizado = (string)left + (string)right;
-        //                 entorno.actualizarValorSimbolo(nombreVariable, valorActualizado);
-        //             }
-        //             else if (left is double && right is double)
-        //             {
-        //                 double valorActualizado = (double)left + (double)right;
-        //                 entorno.actualizarValorSimbolo(nombreVariable, valorActualizado);
-        //             }
-        //             else if ((left is double || left is int) && (right is double || right is int))
-        //             {
-        //                 double leftValue = Convert.ToDouble(left);
-        //                 double rightValue = Convert.ToDouble(right);
-        //                 double valorActualizado = leftValue + rightValue;
-        //                 entorno.actualizarValorSimbolo(nombreVariable, valorActualizado);
-        //             }
-        //             else
-        //             {
-        //                 AddSemanticError($"No se puede aplicar el operador += para los tipos de datos de '{nombreVariable}' y la expresión", context.Start);
-        //             }
-        //         }
-        //         else if (signo == "-=")
-        //         {
-        //             var simbolo = entorno.buscarVariable(nombreVariable);
-        //             if (simbolo == null)
-        //             {
-        //                 AddSemanticError($"Variable '{nombreVariable}' no ha sido declarada", context.Start);
-        //                 return false;
-        //             }
-                    
-        //             var right = simbolo.valor;
-        //             var left = valor;
-
-        //             if (left is int && right is int)
-        //             {
-        //                 int valorActualizado = (int)right - (int)left;
-        //                 entorno.actualizarValorSimbolo(nombreVariable, valorActualizado);
-        //             }
-        //             else if (left is double && right is double)
-        //             {
-        //                 double valorActualizado = (double)right - (double)left;
-        //                 entorno.actualizarValorSimbolo(nombreVariable, valorActualizado);
-        //             }
-        //             else if ((left is double || left is int) && (right is double || right is int))
-        //             {
-        //                 double leftValue = Convert.ToDouble(left);
-        //                 double rightValue = Convert.ToDouble(right);
-        //                 double valorActualizado = rightValue - leftValue;
-        //                 entorno.actualizarValorSimbolo(nombreVariable, valorActualizado);
-        //             }
-        //             else
-        //             {
-        //                 AddSemanticError($"No se puede aplicar el operador -= para los tipos de datos de '{nombreVariable}' y la expresión", context.Start);
-        //             }
-        //         }
-        //         return true;
-        //     }
-        //     catch (Exception ex)
-        //     {
-        //         AddSemanticError($"Error en asignación de variable: {ex.Message}", context.Start);
-        //         return false;
-        //     }
-        // }
-        // /*FIN DE VARIABLES*/
 
         // /* INSTUCCION IF */
         // public override object VisitInstruccion_if([NotNull] AnalizadorLexicoParser.Instruccion_ifContext context)
@@ -562,62 +686,45 @@ namespace analyzer
 
 
 
-        /*SIGNOS DE AGRUPACION*/
-        public override Object VisitExpreParentesis(AnalizadorLexicoParser.ExpreParentesisContext context)
-        {
-            try
-            {
-                Console.WriteLine("Encontro expresion en parentesis");
-                return Visit(context.expr());
-            }
-            catch (Exception ex)
-            {
-                AddSemanticError($"Error en expresión entre paréntesis: {ex.Message}", context.Start);
-                return null;
-            }
-        }
-        public override Object VisitExpreCorchetes(AnalizadorLexicoParser.ExpreCorchetesContext context)
-        {
-            try
-            {
-                return Visit(context.expr());
-            }
-            catch (Exception ex)
-            {
-                AddSemanticError($"Error en expresión entre corchetes: {ex.Message}", context.Start);
-                return null;
-            }
-        }
-        /*FIN SIGNOS DE AGRUPACION*/
 
         // //AUXILIARES
-        // public Object ValorPorDefecto(string tipo)
-        // {
-        //     return tipo switch
-        //     {
-        //         "int" => 0,
-        //         "float64" => 0.0,
-        //         "string" => "",
-        //         "bool" => false,
-        //         "rune" => "\0",
-        //         _ => throw new Exception($"Tipo desconocido: {tipo}")
-        //     };
-        // }
+        private Nativo ConvertirANativo(object valor, IToken token)
+        {
+            if (valor is Nativo)
+            {
+                return (Nativo)valor;
+            }
+            else if (valor is SimbolosDTO)
+            {
+                var simbolo = (SimbolosDTO)valor;
+                if (simbolo.valor is Nativo)
+                {
+                    return (Nativo)simbolo.valor;
+                }
+                else
+                {
+                    throw new Exception($"El valor de la variable '{simbolo.identificador}' no es un Nativo válido.");
+                }
+            }
+            else
+            {
+                throw new Exception($"Tipo de dato no soportado para operación aritmética: {valor.GetType().Name}");
+            }
+        }
+        public Object ValorPorDefecto(string tipo)
+        {
+            return tipo switch
+            {
+                "int" => 0,
+                "float64" => 0.0,
+                "string" => "",
+                "bool" => false,
+                "rune" => "\0",
+                _ => throw new Exception($"Tipo desconocido: {tipo}")
+            };
+        }
 
-        // public override Object VisitIdExpresion([NotNull] AnalizadorLexicoParser.IdExpresionContext context)
-        // {
-        //     EntornoDTO entorno = pilaEntornos.Peek();
-        //     string variableName = context.PALABRA().GetText();
-        //     SimbolosDTO? simbolo = entorno.buscarVariable(variableName);
-            
-        //     if (simbolo != null)
-        //     {
-        //         return simbolo.valor;
-        //     }
-            
-        //     AddSemanticError($"Variable '{variableName}' no ha sido declarada", context.Start);
-        //     return "NULL";
-        // }
+
 
         // public bool TipoCompatible(string tipo, object valor)
         // {
