@@ -309,8 +309,6 @@ namespace analyzer
                 Nativo right = (Nativo)Visit(context.right);
                 OperadorLogicos operadorLogico;
 
-                Console.WriteLine("Operador: " + operador);
-
                 switch(operador) {
                     case "!":
                         operadorLogico = OperadorLogicos.NOT;

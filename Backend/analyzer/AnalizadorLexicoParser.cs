@@ -913,12 +913,12 @@ public partial class AnalizadorLexicoParser : Parser {
 		[System.Diagnostics.DebuggerNonUserCode] public ExprContext expr(int i) {
 			return GetRuleContext<ExprContext>(i);
 		}
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode MENOR() { return GetToken(AnalizadorLexicoParser.MENOR, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode MENOR_IGUAL() { return GetToken(AnalizadorLexicoParser.MENOR_IGUAL, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode MAYOR() { return GetToken(AnalizadorLexicoParser.MAYOR, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode MAYOR_IGUAL() { return GetToken(AnalizadorLexicoParser.MAYOR_IGUAL, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode IGUAL_IGUAL() { return GetToken(AnalizadorLexicoParser.IGUAL_IGUAL, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode DIFERENTE() { return GetToken(AnalizadorLexicoParser.DIFERENTE, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode MAYOR_IGUAL() { return GetToken(AnalizadorLexicoParser.MAYOR_IGUAL, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode MAYOR() { return GetToken(AnalizadorLexicoParser.MAYOR, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode MENOR_IGUAL() { return GetToken(AnalizadorLexicoParser.MENOR_IGUAL, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode MENOR() { return GetToken(AnalizadorLexicoParser.MENOR, 0); }
 		public OperadorRelacionalContext(ExprContext context) { CopyFrom(context); }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override void EnterRule(IParseTreeListener listener) {
@@ -1167,7 +1167,7 @@ public partial class AnalizadorLexicoParser : Parser {
 						((MultiplicacionYdivisionContext)_localctx).left = _prevctx;
 						PushNewRecursionContext(_localctx, _startState, RULE_expr);
 						State = 80;
-						if (!(Precpred(Context, 11))) throw new FailedPredicateException(this, "Precpred(Context, 11)");
+						if (!(Precpred(Context, 17))) throw new FailedPredicateException(this, "Precpred(Context, 17)");
 						State = 81;
 						((MultiplicacionYdivisionContext)_localctx).operador = TokenStream.LT(1);
 						_la = TokenStream.LA(1);
@@ -1179,17 +1179,30 @@ public partial class AnalizadorLexicoParser : Parser {
 						    Consume();
 						}
 						State = 82;
-						((MultiplicacionYdivisionContext)_localctx).right = expr(12);
+						((MultiplicacionYdivisionContext)_localctx).right = expr(18);
 						}
 						break;
 					case 2:
 						{
+						_localctx = new ModuloContext(new ExprContext(_parentctx, _parentState));
+						((ModuloContext)_localctx).left = _prevctx;
+						PushNewRecursionContext(_localctx, _startState, RULE_expr);
+						State = 83;
+						if (!(Precpred(Context, 16))) throw new FailedPredicateException(this, "Precpred(Context, 16)");
+						State = 84;
+						((ModuloContext)_localctx).operador = Match(MODULO);
+						State = 85;
+						((ModuloContext)_localctx).right = expr(17);
+						}
+						break;
+					case 3:
+						{
 						_localctx = new SumaYrestaContext(new ExprContext(_parentctx, _parentState));
 						((SumaYrestaContext)_localctx).left = _prevctx;
 						PushNewRecursionContext(_localctx, _startState, RULE_expr);
-						State = 83;
-						if (!(Precpred(Context, 10))) throw new FailedPredicateException(this, "Precpred(Context, 10)");
-						State = 84;
+						State = 86;
+						if (!(Precpred(Context, 15))) throw new FailedPredicateException(this, "Precpred(Context, 15)");
+						State = 87;
 						((SumaYrestaContext)_localctx).operador = TokenStream.LT(1);
 						_la = TokenStream.LA(1);
 						if ( !(_la==MAS || _la==MENOS) ) {
@@ -1199,21 +1212,8 @@ public partial class AnalizadorLexicoParser : Parser {
 							ErrorHandler.ReportMatch(this);
 						    Consume();
 						}
-						State = 85;
-						((SumaYrestaContext)_localctx).right = expr(11);
-						}
-						break;
-					case 3:
-						{
-						_localctx = new ModuloContext(new ExprContext(_parentctx, _parentState));
-						((ModuloContext)_localctx).left = _prevctx;
-						PushNewRecursionContext(_localctx, _startState, RULE_expr);
-						State = 86;
-						if (!(Precpred(Context, 9))) throw new FailedPredicateException(this, "Precpred(Context, 9)");
-						State = 87;
-						((ModuloContext)_localctx).operador = Match(MODULO);
 						State = 88;
-						((ModuloContext)_localctx).right = expr(10);
+						((SumaYrestaContext)_localctx).right = expr(16);
 						}
 						break;
 					case 4:
@@ -1222,11 +1222,11 @@ public partial class AnalizadorLexicoParser : Parser {
 						((OperadorRelacionalContext)_localctx).left = _prevctx;
 						PushNewRecursionContext(_localctx, _startState, RULE_expr);
 						State = 89;
-						if (!(Precpred(Context, 8))) throw new FailedPredicateException(this, "Precpred(Context, 8)");
+						if (!(Precpred(Context, 14))) throw new FailedPredicateException(this, "Precpred(Context, 14)");
 						State = 90;
-						((OperadorRelacionalContext)_localctx).operador = Match(IGUAL_IGUAL);
+						((OperadorRelacionalContext)_localctx).operador = Match(MENOR);
 						State = 91;
-						((OperadorRelacionalContext)_localctx).right = expr(9);
+						((OperadorRelacionalContext)_localctx).right = expr(15);
 						}
 						break;
 					case 5:
@@ -1235,11 +1235,11 @@ public partial class AnalizadorLexicoParser : Parser {
 						((OperadorRelacionalContext)_localctx).left = _prevctx;
 						PushNewRecursionContext(_localctx, _startState, RULE_expr);
 						State = 92;
-						if (!(Precpred(Context, 7))) throw new FailedPredicateException(this, "Precpred(Context, 7)");
+						if (!(Precpred(Context, 13))) throw new FailedPredicateException(this, "Precpred(Context, 13)");
 						State = 93;
-						((OperadorRelacionalContext)_localctx).operador = Match(DIFERENTE);
+						((OperadorRelacionalContext)_localctx).operador = Match(MENOR_IGUAL);
 						State = 94;
-						((OperadorRelacionalContext)_localctx).right = expr(8);
+						((OperadorRelacionalContext)_localctx).right = expr(14);
 						}
 						break;
 					case 6:
@@ -1248,11 +1248,11 @@ public partial class AnalizadorLexicoParser : Parser {
 						((OperadorRelacionalContext)_localctx).left = _prevctx;
 						PushNewRecursionContext(_localctx, _startState, RULE_expr);
 						State = 95;
-						if (!(Precpred(Context, 6))) throw new FailedPredicateException(this, "Precpred(Context, 6)");
+						if (!(Precpred(Context, 12))) throw new FailedPredicateException(this, "Precpred(Context, 12)");
 						State = 96;
-						((OperadorRelacionalContext)_localctx).operador = Match(MAYOR_IGUAL);
+						((OperadorRelacionalContext)_localctx).operador = Match(MAYOR);
 						State = 97;
-						((OperadorRelacionalContext)_localctx).right = expr(7);
+						((OperadorRelacionalContext)_localctx).right = expr(13);
 						}
 						break;
 					case 7:
@@ -1261,11 +1261,11 @@ public partial class AnalizadorLexicoParser : Parser {
 						((OperadorRelacionalContext)_localctx).left = _prevctx;
 						PushNewRecursionContext(_localctx, _startState, RULE_expr);
 						State = 98;
-						if (!(Precpred(Context, 5))) throw new FailedPredicateException(this, "Precpred(Context, 5)");
+						if (!(Precpred(Context, 11))) throw new FailedPredicateException(this, "Precpred(Context, 11)");
 						State = 99;
-						((OperadorRelacionalContext)_localctx).operador = Match(MAYOR);
+						((OperadorRelacionalContext)_localctx).operador = Match(MAYOR_IGUAL);
 						State = 100;
-						((OperadorRelacionalContext)_localctx).right = expr(6);
+						((OperadorRelacionalContext)_localctx).right = expr(12);
 						}
 						break;
 					case 8:
@@ -1274,11 +1274,11 @@ public partial class AnalizadorLexicoParser : Parser {
 						((OperadorRelacionalContext)_localctx).left = _prevctx;
 						PushNewRecursionContext(_localctx, _startState, RULE_expr);
 						State = 101;
-						if (!(Precpred(Context, 4))) throw new FailedPredicateException(this, "Precpred(Context, 4)");
+						if (!(Precpred(Context, 10))) throw new FailedPredicateException(this, "Precpred(Context, 10)");
 						State = 102;
-						((OperadorRelacionalContext)_localctx).operador = Match(MENOR_IGUAL);
+						((OperadorRelacionalContext)_localctx).operador = Match(IGUAL_IGUAL);
 						State = 103;
-						((OperadorRelacionalContext)_localctx).right = expr(5);
+						((OperadorRelacionalContext)_localctx).right = expr(11);
 						}
 						break;
 					case 9:
@@ -1287,11 +1287,11 @@ public partial class AnalizadorLexicoParser : Parser {
 						((OperadorRelacionalContext)_localctx).left = _prevctx;
 						PushNewRecursionContext(_localctx, _startState, RULE_expr);
 						State = 104;
-						if (!(Precpred(Context, 3))) throw new FailedPredicateException(this, "Precpred(Context, 3)");
+						if (!(Precpred(Context, 9))) throw new FailedPredicateException(this, "Precpred(Context, 9)");
 						State = 105;
-						((OperadorRelacionalContext)_localctx).operador = Match(MENOR);
+						((OperadorRelacionalContext)_localctx).operador = Match(DIFERENTE);
 						State = 106;
-						((OperadorRelacionalContext)_localctx).right = expr(4);
+						((OperadorRelacionalContext)_localctx).right = expr(10);
 						}
 						break;
 					case 10:
@@ -1300,11 +1300,11 @@ public partial class AnalizadorLexicoParser : Parser {
 						((OperadorLogicoContext)_localctx).left = _prevctx;
 						PushNewRecursionContext(_localctx, _startState, RULE_expr);
 						State = 107;
-						if (!(Precpred(Context, 2))) throw new FailedPredicateException(this, "Precpred(Context, 2)");
+						if (!(Precpred(Context, 8))) throw new FailedPredicateException(this, "Precpred(Context, 8)");
 						State = 108;
 						((OperadorLogicoContext)_localctx).operador = Match(Y_LOGICO);
 						State = 109;
-						((OperadorLogicoContext)_localctx).right = expr(3);
+						((OperadorLogicoContext)_localctx).right = expr(9);
 						}
 						break;
 					case 11:
@@ -1313,11 +1313,11 @@ public partial class AnalizadorLexicoParser : Parser {
 						((OperadorLogicoContext)_localctx).left = _prevctx;
 						PushNewRecursionContext(_localctx, _startState, RULE_expr);
 						State = 110;
-						if (!(Precpred(Context, 1))) throw new FailedPredicateException(this, "Precpred(Context, 1)");
+						if (!(Precpred(Context, 7))) throw new FailedPredicateException(this, "Precpred(Context, 7)");
 						State = 111;
 						((OperadorLogicoContext)_localctx).operador = Match(O_LOGICO);
 						State = 112;
-						((OperadorLogicoContext)_localctx).right = expr(2);
+						((OperadorLogicoContext)_localctx).right = expr(8);
 						}
 						break;
 					}
@@ -1348,17 +1348,17 @@ public partial class AnalizadorLexicoParser : Parser {
 	}
 	private bool expr_sempred(ExprContext _localctx, int predIndex) {
 		switch (predIndex) {
-		case 0: return Precpred(Context, 11);
-		case 1: return Precpred(Context, 10);
-		case 2: return Precpred(Context, 9);
-		case 3: return Precpred(Context, 8);
-		case 4: return Precpred(Context, 7);
-		case 5: return Precpred(Context, 6);
-		case 6: return Precpred(Context, 5);
-		case 7: return Precpred(Context, 4);
-		case 8: return Precpred(Context, 3);
-		case 9: return Precpred(Context, 2);
-		case 10: return Precpred(Context, 1);
+		case 0: return Precpred(Context, 17);
+		case 1: return Precpred(Context, 16);
+		case 2: return Precpred(Context, 15);
+		case 3: return Precpred(Context, 14);
+		case 4: return Precpred(Context, 13);
+		case 5: return Precpred(Context, 12);
+		case 6: return Precpred(Context, 11);
+		case 7: return Precpred(Context, 10);
+		case 8: return Precpred(Context, 9);
+		case 9: return Precpred(Context, 8);
+		case 10: return Precpred(Context, 7);
 		}
 		return true;
 	}
@@ -1389,18 +1389,19 @@ public partial class AnalizadorLexicoParser : Parser {
 		79,3,16,8,18,72,79,5,12,0,0,73,79,5,13,0,0,74,79,5,14,0,0,75,79,5,16,0,
 		0,76,79,5,15,0,0,77,79,5,17,0,0,78,59,1,0,0,0,78,64,1,0,0,0,78,68,1,0,
 		0,0,78,70,1,0,0,0,78,72,1,0,0,0,78,73,1,0,0,0,78,74,1,0,0,0,78,75,1,0,
-		0,0,78,76,1,0,0,0,78,77,1,0,0,0,79,115,1,0,0,0,80,81,10,11,0,0,81,82,7,
-		2,0,0,82,114,3,16,8,12,83,84,10,10,0,0,84,85,7,3,0,0,85,114,3,16,8,11,
-		86,87,10,9,0,0,87,88,5,32,0,0,88,114,3,16,8,10,89,90,10,8,0,0,90,91,5,
-		36,0,0,91,114,3,16,8,9,92,93,10,7,0,0,93,94,5,37,0,0,94,114,3,16,8,8,95,
-		96,10,6,0,0,96,97,5,38,0,0,97,114,3,16,8,7,98,99,10,5,0,0,99,100,5,39,
-		0,0,100,114,3,16,8,6,101,102,10,4,0,0,102,103,5,40,0,0,103,114,3,16,8,
-		5,104,105,10,3,0,0,105,106,5,41,0,0,106,114,3,16,8,4,107,108,10,2,0,0,
-		108,109,5,33,0,0,109,114,3,16,8,3,110,111,10,1,0,0,111,112,5,34,0,0,112,
-		114,3,16,8,2,113,80,1,0,0,0,113,83,1,0,0,0,113,86,1,0,0,0,113,89,1,0,0,
-		0,113,92,1,0,0,0,113,95,1,0,0,0,113,98,1,0,0,0,113,101,1,0,0,0,113,104,
-		1,0,0,0,113,107,1,0,0,0,113,110,1,0,0,0,114,117,1,0,0,0,115,113,1,0,0,
-		0,115,116,1,0,0,0,116,17,1,0,0,0,117,115,1,0,0,0,6,24,31,43,78,113,115
+		0,0,78,76,1,0,0,0,78,77,1,0,0,0,79,115,1,0,0,0,80,81,10,17,0,0,81,82,7,
+		2,0,0,82,114,3,16,8,18,83,84,10,16,0,0,84,85,5,32,0,0,85,114,3,16,8,17,
+		86,87,10,15,0,0,87,88,7,3,0,0,88,114,3,16,8,16,89,90,10,14,0,0,90,91,5,
+		41,0,0,91,114,3,16,8,15,92,93,10,13,0,0,93,94,5,40,0,0,94,114,3,16,8,14,
+		95,96,10,12,0,0,96,97,5,39,0,0,97,114,3,16,8,13,98,99,10,11,0,0,99,100,
+		5,38,0,0,100,114,3,16,8,12,101,102,10,10,0,0,102,103,5,36,0,0,103,114,
+		3,16,8,11,104,105,10,9,0,0,105,106,5,37,0,0,106,114,3,16,8,10,107,108,
+		10,8,0,0,108,109,5,33,0,0,109,114,3,16,8,9,110,111,10,7,0,0,111,112,5,
+		34,0,0,112,114,3,16,8,8,113,80,1,0,0,0,113,83,1,0,0,0,113,86,1,0,0,0,113,
+		89,1,0,0,0,113,92,1,0,0,0,113,95,1,0,0,0,113,98,1,0,0,0,113,101,1,0,0,
+		0,113,104,1,0,0,0,113,107,1,0,0,0,113,110,1,0,0,0,114,117,1,0,0,0,115,
+		113,1,0,0,0,115,116,1,0,0,0,116,17,1,0,0,0,117,115,1,0,0,0,6,24,31,43,
+		78,113,115
 	};
 
 	public static readonly ATN _ATN =

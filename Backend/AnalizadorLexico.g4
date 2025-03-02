@@ -74,25 +74,25 @@ expr: '(' expr ')' #expreParentesis
     | operador='-' right=expr #operadorNegativo
     | operador='!' right=expr #operadorNegacion
 
+    | left=expr operador=('*'|'/') right=expr #multiplicacionYdivision
+    | left=expr operador='%' right=expr #modulo
+    | left=expr operador=('+'|'-') right=expr #sumaYresta
+
+    | left=expr operador='<' right=expr #operadorRelacional
+    | left=expr operador='<=' right=expr #operadorRelacional
+    | left=expr operador='>' right=expr #operadorRelacional
+    | left=expr operador='>=' right=expr #operadorRelacional
+    | left=expr operador='==' right=expr #operadorRelacional
+    | left=expr operador='!=' right=expr #operadorRelacional
+
+    | left=expr operador='&&' right=expr #operadorLogico
+    | left=expr operador='||' right=expr #operadorLogico
+
     | INT #intExpresion
     | DECIMAL #decimalExpresion
     | CARACTER #caracterExpresion
     | BOOL #boleanExpresion
     | CADENA #cadenaExpresion
     | ID #idExpresion
-
-    | left=expr operador=('*'|'/') right=expr #multiplicacionYdivision
-    | left=expr operador=('+'|'-') right=expr #sumaYresta
-    | left=expr operador='%' right=expr #modulo
-
-    | left=expr operador='==' right=expr #operadorRelacional
-    | left=expr operador='!=' right=expr #operadorRelacional
-    | left=expr operador='>=' right=expr #operadorRelacional
-    | left=expr operador='>' right=expr #operadorRelacional
-    | left=expr operador='<=' right=expr #operadorRelacional
-    | left=expr operador='<' right=expr #operadorRelacional
-
-    | left=expr operador='&&' right=expr #operadorLogico
-    | left=expr operador='||' right=expr #operadorLogico
     ;
 

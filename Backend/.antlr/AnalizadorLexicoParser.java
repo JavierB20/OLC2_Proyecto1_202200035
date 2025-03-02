@@ -623,12 +623,12 @@ public class AnalizadorLexicoParser extends Parser {
 		public ExprContext expr(int i) {
 			return getRuleContext(ExprContext.class,i);
 		}
+		public TerminalNode MENOR() { return getToken(AnalizadorLexicoParser.MENOR, 0); }
+		public TerminalNode MENOR_IGUAL() { return getToken(AnalizadorLexicoParser.MENOR_IGUAL, 0); }
+		public TerminalNode MAYOR() { return getToken(AnalizadorLexicoParser.MAYOR, 0); }
+		public TerminalNode MAYOR_IGUAL() { return getToken(AnalizadorLexicoParser.MAYOR_IGUAL, 0); }
 		public TerminalNode IGUAL_IGUAL() { return getToken(AnalizadorLexicoParser.IGUAL_IGUAL, 0); }
 		public TerminalNode DIFERENTE() { return getToken(AnalizadorLexicoParser.DIFERENTE, 0); }
-		public TerminalNode MAYOR_IGUAL() { return getToken(AnalizadorLexicoParser.MAYOR_IGUAL, 0); }
-		public TerminalNode MAYOR() { return getToken(AnalizadorLexicoParser.MAYOR, 0); }
-		public TerminalNode MENOR_IGUAL() { return getToken(AnalizadorLexicoParser.MENOR_IGUAL, 0); }
-		public TerminalNode MENOR() { return getToken(AnalizadorLexicoParser.MENOR, 0); }
 		public OperadorRelacionalContext(ExprContext ctx) { copyFrom(ctx); }
 	}
 	@SuppressWarnings("CheckReturnValue")
@@ -814,7 +814,7 @@ public class AnalizadorLexicoParser extends Parser {
 						((MultiplicacionYdivisionContext)_localctx).left = _prevctx;
 						pushNewRecursionContext(_localctx, _startState, RULE_expr);
 						setState(80);
-						if (!(precpred(_ctx, 11))) throw new FailedPredicateException(this, "precpred(_ctx, 11)");
+						if (!(precpred(_ctx, 17))) throw new FailedPredicateException(this, "precpred(_ctx, 17)");
 						setState(81);
 						((MultiplicacionYdivisionContext)_localctx).operador = _input.LT(1);
 						_la = _input.LA(1);
@@ -827,17 +827,30 @@ public class AnalizadorLexicoParser extends Parser {
 							consume();
 						}
 						setState(82);
-						((MultiplicacionYdivisionContext)_localctx).right = expr(12);
+						((MultiplicacionYdivisionContext)_localctx).right = expr(18);
 						}
 						break;
 					case 2:
 						{
+						_localctx = new ModuloContext(new ExprContext(_parentctx, _parentState));
+						((ModuloContext)_localctx).left = _prevctx;
+						pushNewRecursionContext(_localctx, _startState, RULE_expr);
+						setState(83);
+						if (!(precpred(_ctx, 16))) throw new FailedPredicateException(this, "precpred(_ctx, 16)");
+						setState(84);
+						((ModuloContext)_localctx).operador = match(MODULO);
+						setState(85);
+						((ModuloContext)_localctx).right = expr(17);
+						}
+						break;
+					case 3:
+						{
 						_localctx = new SumaYrestaContext(new ExprContext(_parentctx, _parentState));
 						((SumaYrestaContext)_localctx).left = _prevctx;
 						pushNewRecursionContext(_localctx, _startState, RULE_expr);
-						setState(83);
-						if (!(precpred(_ctx, 10))) throw new FailedPredicateException(this, "precpred(_ctx, 10)");
-						setState(84);
+						setState(86);
+						if (!(precpred(_ctx, 15))) throw new FailedPredicateException(this, "precpred(_ctx, 15)");
+						setState(87);
 						((SumaYrestaContext)_localctx).operador = _input.LT(1);
 						_la = _input.LA(1);
 						if ( !(_la==MAS || _la==MENOS) ) {
@@ -848,21 +861,8 @@ public class AnalizadorLexicoParser extends Parser {
 							_errHandler.reportMatch(this);
 							consume();
 						}
-						setState(85);
-						((SumaYrestaContext)_localctx).right = expr(11);
-						}
-						break;
-					case 3:
-						{
-						_localctx = new ModuloContext(new ExprContext(_parentctx, _parentState));
-						((ModuloContext)_localctx).left = _prevctx;
-						pushNewRecursionContext(_localctx, _startState, RULE_expr);
-						setState(86);
-						if (!(precpred(_ctx, 9))) throw new FailedPredicateException(this, "precpred(_ctx, 9)");
-						setState(87);
-						((ModuloContext)_localctx).operador = match(MODULO);
 						setState(88);
-						((ModuloContext)_localctx).right = expr(10);
+						((SumaYrestaContext)_localctx).right = expr(16);
 						}
 						break;
 					case 4:
@@ -871,11 +871,11 @@ public class AnalizadorLexicoParser extends Parser {
 						((OperadorRelacionalContext)_localctx).left = _prevctx;
 						pushNewRecursionContext(_localctx, _startState, RULE_expr);
 						setState(89);
-						if (!(precpred(_ctx, 8))) throw new FailedPredicateException(this, "precpred(_ctx, 8)");
+						if (!(precpred(_ctx, 14))) throw new FailedPredicateException(this, "precpred(_ctx, 14)");
 						setState(90);
-						((OperadorRelacionalContext)_localctx).operador = match(IGUAL_IGUAL);
+						((OperadorRelacionalContext)_localctx).operador = match(MENOR);
 						setState(91);
-						((OperadorRelacionalContext)_localctx).right = expr(9);
+						((OperadorRelacionalContext)_localctx).right = expr(15);
 						}
 						break;
 					case 5:
@@ -884,11 +884,11 @@ public class AnalizadorLexicoParser extends Parser {
 						((OperadorRelacionalContext)_localctx).left = _prevctx;
 						pushNewRecursionContext(_localctx, _startState, RULE_expr);
 						setState(92);
-						if (!(precpred(_ctx, 7))) throw new FailedPredicateException(this, "precpred(_ctx, 7)");
+						if (!(precpred(_ctx, 13))) throw new FailedPredicateException(this, "precpred(_ctx, 13)");
 						setState(93);
-						((OperadorRelacionalContext)_localctx).operador = match(DIFERENTE);
+						((OperadorRelacionalContext)_localctx).operador = match(MENOR_IGUAL);
 						setState(94);
-						((OperadorRelacionalContext)_localctx).right = expr(8);
+						((OperadorRelacionalContext)_localctx).right = expr(14);
 						}
 						break;
 					case 6:
@@ -897,11 +897,11 @@ public class AnalizadorLexicoParser extends Parser {
 						((OperadorRelacionalContext)_localctx).left = _prevctx;
 						pushNewRecursionContext(_localctx, _startState, RULE_expr);
 						setState(95);
-						if (!(precpred(_ctx, 6))) throw new FailedPredicateException(this, "precpred(_ctx, 6)");
+						if (!(precpred(_ctx, 12))) throw new FailedPredicateException(this, "precpred(_ctx, 12)");
 						setState(96);
-						((OperadorRelacionalContext)_localctx).operador = match(MAYOR_IGUAL);
+						((OperadorRelacionalContext)_localctx).operador = match(MAYOR);
 						setState(97);
-						((OperadorRelacionalContext)_localctx).right = expr(7);
+						((OperadorRelacionalContext)_localctx).right = expr(13);
 						}
 						break;
 					case 7:
@@ -910,11 +910,11 @@ public class AnalizadorLexicoParser extends Parser {
 						((OperadorRelacionalContext)_localctx).left = _prevctx;
 						pushNewRecursionContext(_localctx, _startState, RULE_expr);
 						setState(98);
-						if (!(precpred(_ctx, 5))) throw new FailedPredicateException(this, "precpred(_ctx, 5)");
+						if (!(precpred(_ctx, 11))) throw new FailedPredicateException(this, "precpred(_ctx, 11)");
 						setState(99);
-						((OperadorRelacionalContext)_localctx).operador = match(MAYOR);
+						((OperadorRelacionalContext)_localctx).operador = match(MAYOR_IGUAL);
 						setState(100);
-						((OperadorRelacionalContext)_localctx).right = expr(6);
+						((OperadorRelacionalContext)_localctx).right = expr(12);
 						}
 						break;
 					case 8:
@@ -923,11 +923,11 @@ public class AnalizadorLexicoParser extends Parser {
 						((OperadorRelacionalContext)_localctx).left = _prevctx;
 						pushNewRecursionContext(_localctx, _startState, RULE_expr);
 						setState(101);
-						if (!(precpred(_ctx, 4))) throw new FailedPredicateException(this, "precpred(_ctx, 4)");
+						if (!(precpred(_ctx, 10))) throw new FailedPredicateException(this, "precpred(_ctx, 10)");
 						setState(102);
-						((OperadorRelacionalContext)_localctx).operador = match(MENOR_IGUAL);
+						((OperadorRelacionalContext)_localctx).operador = match(IGUAL_IGUAL);
 						setState(103);
-						((OperadorRelacionalContext)_localctx).right = expr(5);
+						((OperadorRelacionalContext)_localctx).right = expr(11);
 						}
 						break;
 					case 9:
@@ -936,11 +936,11 @@ public class AnalizadorLexicoParser extends Parser {
 						((OperadorRelacionalContext)_localctx).left = _prevctx;
 						pushNewRecursionContext(_localctx, _startState, RULE_expr);
 						setState(104);
-						if (!(precpred(_ctx, 3))) throw new FailedPredicateException(this, "precpred(_ctx, 3)");
+						if (!(precpred(_ctx, 9))) throw new FailedPredicateException(this, "precpred(_ctx, 9)");
 						setState(105);
-						((OperadorRelacionalContext)_localctx).operador = match(MENOR);
+						((OperadorRelacionalContext)_localctx).operador = match(DIFERENTE);
 						setState(106);
-						((OperadorRelacionalContext)_localctx).right = expr(4);
+						((OperadorRelacionalContext)_localctx).right = expr(10);
 						}
 						break;
 					case 10:
@@ -949,11 +949,11 @@ public class AnalizadorLexicoParser extends Parser {
 						((OperadorLogicoContext)_localctx).left = _prevctx;
 						pushNewRecursionContext(_localctx, _startState, RULE_expr);
 						setState(107);
-						if (!(precpred(_ctx, 2))) throw new FailedPredicateException(this, "precpred(_ctx, 2)");
+						if (!(precpred(_ctx, 8))) throw new FailedPredicateException(this, "precpred(_ctx, 8)");
 						setState(108);
 						((OperadorLogicoContext)_localctx).operador = match(Y_LOGICO);
 						setState(109);
-						((OperadorLogicoContext)_localctx).right = expr(3);
+						((OperadorLogicoContext)_localctx).right = expr(9);
 						}
 						break;
 					case 11:
@@ -962,11 +962,11 @@ public class AnalizadorLexicoParser extends Parser {
 						((OperadorLogicoContext)_localctx).left = _prevctx;
 						pushNewRecursionContext(_localctx, _startState, RULE_expr);
 						setState(110);
-						if (!(precpred(_ctx, 1))) throw new FailedPredicateException(this, "precpred(_ctx, 1)");
+						if (!(precpred(_ctx, 7))) throw new FailedPredicateException(this, "precpred(_ctx, 7)");
 						setState(111);
 						((OperadorLogicoContext)_localctx).operador = match(O_LOGICO);
 						setState(112);
-						((OperadorLogicoContext)_localctx).right = expr(2);
+						((OperadorLogicoContext)_localctx).right = expr(8);
 						}
 						break;
 					}
@@ -999,27 +999,27 @@ public class AnalizadorLexicoParser extends Parser {
 	private boolean expr_sempred(ExprContext _localctx, int predIndex) {
 		switch (predIndex) {
 		case 0:
-			return precpred(_ctx, 11);
+			return precpred(_ctx, 17);
 		case 1:
-			return precpred(_ctx, 10);
+			return precpred(_ctx, 16);
 		case 2:
-			return precpred(_ctx, 9);
+			return precpred(_ctx, 15);
 		case 3:
-			return precpred(_ctx, 8);
+			return precpred(_ctx, 14);
 		case 4:
-			return precpred(_ctx, 7);
+			return precpred(_ctx, 13);
 		case 5:
-			return precpred(_ctx, 6);
+			return precpred(_ctx, 12);
 		case 6:
-			return precpred(_ctx, 5);
+			return precpred(_ctx, 11);
 		case 7:
-			return precpred(_ctx, 4);
+			return precpred(_ctx, 10);
 		case 8:
-			return precpred(_ctx, 3);
+			return precpred(_ctx, 9);
 		case 9:
-			return precpred(_ctx, 2);
+			return precpred(_ctx, 8);
 		case 10:
-			return precpred(_ctx, 1);
+			return precpred(_ctx, 7);
 		}
 		return true;
 	}
@@ -1077,16 +1077,16 @@ public class AnalizadorLexicoParser extends Parser {
 		"\u0000\u0000NF\u0001\u0000\u0000\u0000NH\u0001\u0000\u0000\u0000NI\u0001"+
 		"\u0000\u0000\u0000NJ\u0001\u0000\u0000\u0000NK\u0001\u0000\u0000\u0000"+
 		"NL\u0001\u0000\u0000\u0000NM\u0001\u0000\u0000\u0000Os\u0001\u0000\u0000"+
-		"\u0000PQ\n\u000b\u0000\u0000QR\u0007\u0002\u0000\u0000Rr\u0003\u0010\b"+
-		"\fST\n\n\u0000\u0000TU\u0007\u0003\u0000\u0000Ur\u0003\u0010\b\u000bV"+
-		"W\n\t\u0000\u0000WX\u0005 \u0000\u0000Xr\u0003\u0010\b\nYZ\n\b\u0000\u0000"+
-		"Z[\u0005$\u0000\u0000[r\u0003\u0010\b\t\\]\n\u0007\u0000\u0000]^\u0005"+
-		"%\u0000\u0000^r\u0003\u0010\b\b_`\n\u0006\u0000\u0000`a\u0005&\u0000\u0000"+
-		"ar\u0003\u0010\b\u0007bc\n\u0005\u0000\u0000cd\u0005\'\u0000\u0000dr\u0003"+
-		"\u0010\b\u0006ef\n\u0004\u0000\u0000fg\u0005(\u0000\u0000gr\u0003\u0010"+
-		"\b\u0005hi\n\u0003\u0000\u0000ij\u0005)\u0000\u0000jr\u0003\u0010\b\u0004"+
-		"kl\n\u0002\u0000\u0000lm\u0005!\u0000\u0000mr\u0003\u0010\b\u0003no\n"+
-		"\u0001\u0000\u0000op\u0005\"\u0000\u0000pr\u0003\u0010\b\u0002qP\u0001"+
+		"\u0000PQ\n\u0011\u0000\u0000QR\u0007\u0002\u0000\u0000Rr\u0003\u0010\b"+
+		"\u0012ST\n\u0010\u0000\u0000TU\u0005 \u0000\u0000Ur\u0003\u0010\b\u0011"+
+		"VW\n\u000f\u0000\u0000WX\u0007\u0003\u0000\u0000Xr\u0003\u0010\b\u0010"+
+		"YZ\n\u000e\u0000\u0000Z[\u0005)\u0000\u0000[r\u0003\u0010\b\u000f\\]\n"+
+		"\r\u0000\u0000]^\u0005(\u0000\u0000^r\u0003\u0010\b\u000e_`\n\f\u0000"+
+		"\u0000`a\u0005\'\u0000\u0000ar\u0003\u0010\b\rbc\n\u000b\u0000\u0000c"+
+		"d\u0005&\u0000\u0000dr\u0003\u0010\b\fef\n\n\u0000\u0000fg\u0005$\u0000"+
+		"\u0000gr\u0003\u0010\b\u000bhi\n\t\u0000\u0000ij\u0005%\u0000\u0000jr"+
+		"\u0003\u0010\b\nkl\n\b\u0000\u0000lm\u0005!\u0000\u0000mr\u0003\u0010"+
+		"\b\tno\n\u0007\u0000\u0000op\u0005\"\u0000\u0000pr\u0003\u0010\b\bqP\u0001"+
 		"\u0000\u0000\u0000qS\u0001\u0000\u0000\u0000qV\u0001\u0000\u0000\u0000"+
 		"qY\u0001\u0000\u0000\u0000q\\\u0001\u0000\u0000\u0000q_\u0001\u0000\u0000"+
 		"\u0000qb\u0001\u0000\u0000\u0000qe\u0001\u0000\u0000\u0000qh\u0001\u0000"+
