@@ -562,33 +562,33 @@ namespace analyzer
 
 
 
-
-        // public override Object VisitExpreParentesis(AnalizadorLexicoParser.ExpreParentesisContext context)
-        // {
-        //     try
-        //     {
-        //         Console.WriteLine("Encontro expresion en parentesis");
-        //         return Visit(context.expr());
-        //     }
-        //     catch (Exception ex)
-        //     {
-        //         AddSemanticError($"Error en expresión entre paréntesis: {ex.Message}", context.Start);
-        //         return null;
-        //     }
-        // }
-
-        // public override Object VisitExpreCorchetes(AnalizadorLexicoParser.ExpreCorchetesContext context)
-        // {
-        //     try
-        //     {
-        //         return Visit(context.expr());
-        //     }
-        //     catch (Exception ex)
-        //     {
-        //         AddSemanticError($"Error en expresión entre corchetes: {ex.Message}", context.Start);
-        //         return null;
-        //     }
-        // }
+        /*SIGNOS DE AGRUPACION*/
+        public override Object VisitExpreParentesis(AnalizadorLexicoParser.ExpreParentesisContext context)
+        {
+            try
+            {
+                Console.WriteLine("Encontro expresion en parentesis");
+                return Visit(context.expr());
+            }
+            catch (Exception ex)
+            {
+                AddSemanticError($"Error en expresión entre paréntesis: {ex.Message}", context.Start);
+                return null;
+            }
+        }
+        public override Object VisitExpreCorchetes(AnalizadorLexicoParser.ExpreCorchetesContext context)
+        {
+            try
+            {
+                return Visit(context.expr());
+            }
+            catch (Exception ex)
+            {
+                AddSemanticError($"Error en expresión entre corchetes: {ex.Message}", context.Start);
+                return null;
+            }
+        }
+        /*FIN SIGNOS DE AGRUPACION*/
 
         // //AUXILIARES
         // public Object ValorPorDefecto(string tipo)
