@@ -56,6 +56,7 @@ instruccion: print
             | instruccion_if
             | instruccion_switch
             | incrementoDecremento
+            | instruccion_forcondicional
             ;
 
 print: 'fmt.Println' PARENTESIS_ABRE expr PARENTESIS_CIERRA ;
@@ -65,6 +66,8 @@ variables: 'var' identificador=ID tipoVar=tipo (IGUAL valor=expr)? #declaracionV
 asignacion: ID signo=(IGUAL | DOSPUNTOS_IGUAL | ASIGNACION_SUMA | ASIGNACION_RESTA) expr #asignacionVar ;
 
 incrementoDecremento: ID (INCREMENTO | DECREMENTO) #incrementoDecrementoInstruccion ;
+
+instruccion_forcondicional: 'for' expr LLAVE_ABRE listainstrucciones LLAVE_CIERRA ;
 
 tipo: 'int'
     | 'float64'

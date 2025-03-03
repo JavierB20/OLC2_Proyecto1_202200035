@@ -127,6 +127,18 @@ public partial class AnalizadorLexicoBaseListener : IAnalizadorLexicoListener {
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitIncrementoDecrementoInstruccion([NotNull] AnalizadorLexicoParser.IncrementoDecrementoInstruccionContext context) { }
 	/// <summary>
+	/// Enter a parse tree produced by <see cref="AnalizadorLexicoParser.instruccion_forcondicional"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterInstruccion_forcondicional([NotNull] AnalizadorLexicoParser.Instruccion_forcondicionalContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="AnalizadorLexicoParser.instruccion_forcondicional"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitInstruccion_forcondicional([NotNull] AnalizadorLexicoParser.Instruccion_forcondicionalContext context) { }
+	/// <summary>
 	/// Enter a parse tree produced by <see cref="AnalizadorLexicoParser.tipo"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>

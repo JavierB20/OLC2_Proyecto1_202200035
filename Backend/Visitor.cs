@@ -73,6 +73,8 @@ namespace analyzer
                     Visit(context.instruccion_switch());
                 else if (context.incrementoDecremento() != null)
                     Visit(context.incrementoDecremento());
+                else if (context.instruccion_forcondicional() != null)
+                    Visit(context.instruccion_forcondicional());
             }
             catch (Exception ex)
             {
@@ -853,6 +855,59 @@ namespace analyzer
         }
         /*FIN INCREMENTO/DECREMTO*/
 
+
+        //SENTENCIAS DE FLUJO
+        //FOR
+        public override Object VisitInstruccion_forcondicional([NotNull] AnalizadorLexicoParser.Instruccion_forcondicionalContext context)
+        {
+            try
+            {
+                EntornoDTO entorno = pilaEntornos.Peek();
+                EntornoDTO entornoFor = new EntornoDTO("For", entorno);
+                pilaEntornos.Peek().punteroASiguiente = entornoFor;
+                pilaEntornos.Push(entornoFor);
+
+                // Inicialización
+                if (context.expr != null)
+                {
+                
+                // Condición
+                var expr = Visit(context.expr());
+                Nativo exprResult = ConvertirANativo(expr, context.Start);
+                
+                if (exprResult.Tipo != TipoDato.BOOL)
+                {
+                    AddSemanticError("La expresión en la instrucción for debe ser de tipo booleano", context.expr().Start);
+                    return false;
+                }
+
+                while ((bool)exprResult.Valor)
+                {
+                    // Bloque de instrucciones
+                    Visit(context.listainstrucciones());
+                    
+                    // Evaluar la condición nuevamente
+                    expr = Visit(context.expr());
+                    exprResult = ConvertirANativo(expr, context.Start);
+                }
+
+                pilaEntornos.Pop();
+                pilaEntornos.Peek().punteroASiguiente = null;
+
+                return true;
+                }
+                        
+                return false;
+            }
+            catch (Exception ex)
+            {
+                AddSemanticError($"Error en instrucción for: {ex.Message}", context.Start);
+                return false;
+            }
+        }
+        //FOR CON PARAMETROS
+        //FOR PARA LISTAS
+        /*FIN SENTENCIAS DE FLUJO*/
 
 
         /* IMPRIMIR */
