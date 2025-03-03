@@ -69,8 +69,10 @@ namespace analyzer
                     Visit(context.asignacion());
                 else if (context.instruccion_if() != null)
                     Visit(context.instruccion_if());
-                else if (context.instruccion_switch != null)
+                else if (context.instruccion_switch() != null)
                     Visit(context.instruccion_switch());
+                else if (context.incrementoDecremento() != null)
+                    Visit(context.incrementoDecremento());
             }
             catch (Exception ex)
             {
@@ -92,14 +94,14 @@ namespace analyzer
 
 
         }
-        public override object VisitCaracterExpresion([NotNull] AnalizadorLexicoParser.CaracterExpresionContext context)
+        public override Object VisitCaracterExpresion([NotNull] AnalizadorLexicoParser.CaracterExpresionContext context)
         {
             string rawText = context.GetText().Substring(1, context.GetText().Length - 2);
             char processedText = Convert.ToChar(Regex.Unescape(rawText));
             return new Nativo(processedText, TipoDato.RUNE, context.Start.Line, context.Start.Column);
 
         }
-        public override object VisitBoleanExpresion([NotNull] AnalizadorLexicoParser.BoleanExpresionContext context)
+        public override Object VisitBoleanExpresion([NotNull] AnalizadorLexicoParser.BoleanExpresionContext context)
         {
             if (context.BOOL().GetText() == "true")
                 return new Nativo(true, TipoDato.BOOL, context.Start.Line, context.Start.Column);
@@ -650,7 +652,7 @@ namespace analyzer
 
         //SENTENCIAS DE CONTROL
         /* INSTUCCION IF */
-        public override object VisitInstruccion_if([NotNull] AnalizadorLexicoParser.Instruccion_ifContext context)
+        public override Object VisitInstruccion_if([NotNull] AnalizadorLexicoParser.Instruccion_ifContext context)
         {
             try
             {
@@ -705,7 +707,7 @@ namespace analyzer
             }
         }
         /* INSTRUCCION SWITCH*/
-        public override object VisitInstruccion_switch([NotNull] AnalizadorLexicoParser.Instruccion_switchContext context)
+        public override Object VisitInstruccion_switch([NotNull] AnalizadorLexicoParser.Instruccion_switchContext context)
         {
             try
             {
@@ -791,17 +793,66 @@ namespace analyzer
                 return false;
             }
         }
-
-        public override object VisitCaso([NotNull] AnalizadorLexicoParser.CasoContext context)
+        public override Object VisitCaso([NotNull] AnalizadorLexicoParser.CasoContext context)
         {
             return Visit(context.listainstrucciones());
         }
-
-        public override object VisitCaso_default([NotNull] AnalizadorLexicoParser.Caso_defaultContext context)
+        public override Object VisitCaso_default([NotNull] AnalizadorLexicoParser.Caso_defaultContext context)
         {
             return Visit(context.listainstrucciones());
         }
         /*FIN SENTENCIAS DE CONTROL*/
+
+
+        /*INCREMENTO/DECREMENTO*/
+        public override object VisitIncrementoDecrementoInstruccion([NotNull] AnalizadorLexicoParser.IncrementoDecrementoInstruccionContext context)
+        {
+            try
+            {
+                string nombreVariable = context.ID().GetText();
+                string operador = context.GetText().EndsWith("++") ? "++" : "--";
+                
+                // Buscar la variable en el entorno actual
+                EntornoDTO entorno = pilaEntornos.Peek();
+                var simbolo = entorno.buscarVariable(nombreVariable);
+                
+                if (simbolo == null)
+                {
+                    AddSemanticError($"Variable '{nombreVariable}' no ha sido declarada", context.Start);
+                    return false;
+                }
+                
+                Nativo valorNativo = (Nativo)simbolo.valor;
+                
+                if (valorNativo.Tipo != TipoDato.INT && valorNativo.Tipo != TipoDato.FLOAT64)
+                {
+                    AddSemanticError($"No se puede aplicar el operador {operador} a una variable de tipo {valorNativo.Tipo}", context.Start);
+                    return false;
+                }
+                
+                if (valorNativo.Tipo == TipoDato.INT)
+                {
+                    int valorActual = (int)valorNativo.Valor;
+                    int nuevoValor = (operador == "++") ? valorActual + 1 : valorActual - 1;
+                    
+                    // Crear un nuevo objeto Nativo con el resultado
+                    Nativo resultado = new Nativo(nuevoValor, TipoDato.INT, context.Start.Line, context.Start.Column);
+                    entorno.actualizarValorSimbolo(nombreVariable, resultado);
+                    
+                    // Devolver el nuevo valor
+                    return resultado;
+                }
+
+                return false;
+            }
+            catch (Exception ex)
+            {
+                AddSemanticError($"Error en operación de incremento/decremento: {ex.Message}", context.Start);
+                return false;
+            }
+        }
+        /*FIN INCREMENTO/DECREMTO*/
+
 
 
         /* IMPRIMIR */

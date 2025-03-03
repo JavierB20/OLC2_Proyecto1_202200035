@@ -44,6 +44,8 @@ MAYOR_IGUAL=43
 MAYOR=44
 MENOR_IGUAL=45
 MENOR=46
+INCREMENTO=47
+DECREMENTO=48
 'fmt.Println'=1
 'var'=2
 'int'=3
@@ -81,3 +83,5 @@ MENOR=46
 '>'=44
 '<='=45
 '<'=46
+'++'=47
+'--'=48

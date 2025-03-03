@@ -113,6 +113,20 @@ public partial class AnalizadorLexicoBaseListener : IAnalizadorLexicoListener {
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitAsignacionVar([NotNull] AnalizadorLexicoParser.AsignacionVarContext context) { }
 	/// <summary>
+	/// Enter a parse tree produced by the <c>incrementoDecrementoInstruccion</c>
+	/// labeled alternative in <see cref="AnalizadorLexicoParser.incrementoDecremento"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterIncrementoDecrementoInstruccion([NotNull] AnalizadorLexicoParser.IncrementoDecrementoInstruccionContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by the <c>incrementoDecrementoInstruccion</c>
+	/// labeled alternative in <see cref="AnalizadorLexicoParser.incrementoDecremento"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitIncrementoDecrementoInstruccion([NotNull] AnalizadorLexicoParser.IncrementoDecrementoInstruccionContext context) { }
+	/// <summary>
 	/// Enter a parse tree produced by <see cref="AnalizadorLexicoParser.tipo"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>

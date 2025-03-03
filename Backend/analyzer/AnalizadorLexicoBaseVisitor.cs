@@ -98,6 +98,17 @@ public partial class AnalizadorLexicoBaseVisitor<Result> : AbstractParseTreeVisi
 	/// <return>The visitor result.</return>
 	public virtual Result VisitAsignacionVar([NotNull] AnalizadorLexicoParser.AsignacionVarContext context) { return VisitChildren(context); }
 	/// <summary>
+	/// Visit a parse tree produced by the <c>incrementoDecrementoInstruccion</c>
+	/// labeled alternative in <see cref="AnalizadorLexicoParser.incrementoDecremento"/>.
+	/// <para>
+	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
+	/// on <paramref name="context"/>.
+	/// </para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	public virtual Result VisitIncrementoDecrementoInstruccion([NotNull] AnalizadorLexicoParser.IncrementoDecrementoInstruccionContext context) { return VisitChildren(context); }
+	/// <summary>
 	/// Visit a parse tree produced by <see cref="AnalizadorLexicoParser.tipo"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>

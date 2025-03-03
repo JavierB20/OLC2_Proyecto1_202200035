@@ -71,6 +71,13 @@ public interface IAnalizadorLexicoVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <return>The visitor result.</return>
 	Result VisitAsignacionVar([NotNull] AnalizadorLexicoParser.AsignacionVarContext context);
 	/// <summary>
+	/// Visit a parse tree produced by the <c>incrementoDecrementoInstruccion</c>
+	/// labeled alternative in <see cref="AnalizadorLexicoParser.incrementoDecremento"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitIncrementoDecrementoInstruccion([NotNull] AnalizadorLexicoParser.IncrementoDecrementoInstruccionContext context);
+	/// <summary>
 	/// Visit a parse tree produced by <see cref="AnalizadorLexicoParser.tipo"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
