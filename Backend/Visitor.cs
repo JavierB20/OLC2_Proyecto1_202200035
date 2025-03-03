@@ -73,6 +73,8 @@ namespace analyzer
                     Visit(context.instruccion_switch());
                 else if (context.incrementoDecremento() != null)
                     Visit(context.incrementoDecremento());
+                else if (context.instruccion_for() != null)
+                    Visit(context.instruccion_for());
                 else if (context.instruccion_forcondicional() != null)
                     Visit(context.instruccion_forcondicional());
             }
@@ -807,7 +809,7 @@ namespace analyzer
 
 
         /*INCREMENTO/DECREMENTO*/
-        public override object VisitIncrementoDecrementoInstruccion([NotNull] AnalizadorLexicoParser.IncrementoDecrementoInstruccionContext context)
+        public override Object VisitIncrementoDecrementoInstruccion([NotNull] AnalizadorLexicoParser.IncrementoDecrementoInstruccionContext context)
         {
             try
             {
@@ -858,7 +860,7 @@ namespace analyzer
 
         //SENTENCIAS DE FLUJO
         //FOR
-        public override Object VisitInstruccion_forcondicional([NotNull] AnalizadorLexicoParser.Instruccion_forcondicionalContext context)
+        public override Object VisitInstruccion_for([NotNull] AnalizadorLexicoParser.Instruccion_forContext context)
         {
             try
             {
@@ -905,7 +907,54 @@ namespace analyzer
                 return false;
             }
         }
-        //FOR CON PARAMETROS
+        //FOR CONDICIONAL
+        public override Object VisitInstruccion_forcondicional([NotNull] AnalizadorLexicoParser.Instruccion_forcondicionalContext context)
+        {
+            try
+            {
+                EntornoDTO entorno = pilaEntornos.Peek();
+                EntornoDTO entornoFor = new EntornoDTO("ForCondicional", entorno);
+                pilaEntornos.Peek().punteroASiguiente = entornoFor;
+                pilaEntornos.Push(entornoFor);
+
+                // 1. Inicialización
+                Visit(context.asignacion());
+
+                // 2. Condición
+                var expr = Visit(context.expr());
+                Nativo exprResult = ConvertirANativo(expr, context.expr().Start);
+
+                if (exprResult.Tipo != TipoDato.BOOL)
+                {
+                    AddSemanticError("La expresión en la instrucción for debe ser de tipo booleano", context.expr().Start);
+                    return false;
+                }
+
+                // 3. Bucle while
+                while ((bool)exprResult.Valor)
+                {
+                    // Bloque de instrucciones
+                    Visit(context.listainstrucciones());
+
+                    // 4. Incremento/Decremento
+                    Visit(context.incrementoDecremento());
+
+                    // Evaluar la condición nuevamente
+                    expr = Visit(context.expr());
+                    exprResult = ConvertirANativo(expr, context.expr().Start);
+                }
+
+                pilaEntornos.Pop();
+                pilaEntornos.Peek().punteroASiguiente = null;
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                AddSemanticError($"Error en instrucción for condicional: {ex.Message}", context.Start);
+                return false;
+            }
+        }
         //FOR PARA LISTAS
         /*FIN SENTENCIAS DE FLUJO*/
 

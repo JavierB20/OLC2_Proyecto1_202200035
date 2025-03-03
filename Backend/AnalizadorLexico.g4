@@ -56,6 +56,7 @@ instruccion: print
             | instruccion_if
             | instruccion_switch
             | incrementoDecremento
+            | instruccion_for
             | instruccion_forcondicional
             ;
 
@@ -67,7 +68,9 @@ asignacion: ID signo=(IGUAL | DOSPUNTOS_IGUAL | ASIGNACION_SUMA | ASIGNACION_RES
 
 incrementoDecremento: ID (INCREMENTO | DECREMENTO) #incrementoDecrementoInstruccion ;
 
-instruccion_forcondicional: 'for' expr LLAVE_ABRE listainstrucciones LLAVE_CIERRA ;
+instruccion_for: 'for' expr LLAVE_ABRE listainstrucciones LLAVE_CIERRA ;
+
+instruccion_forcondicional : 'for' asignacion ';' expr ';' incrementoDecremento LLAVE_ABRE listainstrucciones LLAVE_CIERRA ;
 
 tipo: 'int'
     | 'float64'

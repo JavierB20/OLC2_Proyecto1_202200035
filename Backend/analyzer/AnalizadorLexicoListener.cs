@@ -108,6 +108,16 @@ public interface IAnalizadorLexicoListener : IParseTreeListener {
 	/// <param name="context">The parse tree.</param>
 	void ExitIncrementoDecrementoInstruccion([NotNull] AnalizadorLexicoParser.IncrementoDecrementoInstruccionContext context);
 	/// <summary>
+	/// Enter a parse tree produced by <see cref="AnalizadorLexicoParser.instruccion_for"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterInstruccion_for([NotNull] AnalizadorLexicoParser.Instruccion_forContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="AnalizadorLexicoParser.instruccion_for"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitInstruccion_for([NotNull] AnalizadorLexicoParser.Instruccion_forContext context);
+	/// <summary>
 	/// Enter a parse tree produced by <see cref="AnalizadorLexicoParser.instruccion_forcondicional"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
