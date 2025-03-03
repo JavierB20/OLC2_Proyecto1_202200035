@@ -128,6 +128,26 @@ public interface IAnalizadorLexicoListener : IParseTreeListener {
 	/// <param name="context">The parse tree.</param>
 	void ExitInstruccion_forcondicional([NotNull] AnalizadorLexicoParser.Instruccion_forcondicionalContext context);
 	/// <summary>
+	/// Enter a parse tree produced by <see cref="AnalizadorLexicoParser.instruccion_break"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterInstruccion_break([NotNull] AnalizadorLexicoParser.Instruccion_breakContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="AnalizadorLexicoParser.instruccion_break"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitInstruccion_break([NotNull] AnalizadorLexicoParser.Instruccion_breakContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="AnalizadorLexicoParser.instruccion_continue"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterInstruccion_continue([NotNull] AnalizadorLexicoParser.Instruccion_continueContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="AnalizadorLexicoParser.instruccion_continue"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitInstruccion_continue([NotNull] AnalizadorLexicoParser.Instruccion_continueContext context);
+	/// <summary>
 	/// Enter a parse tree produced by <see cref="AnalizadorLexicoParser.tipo"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>

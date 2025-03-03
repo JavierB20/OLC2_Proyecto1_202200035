@@ -58,6 +58,8 @@ instruccion: print
             | incrementoDecremento
             | instruccion_for
             | instruccion_forcondicional
+            | instruccion_break
+            | instruccion_continue
             ;
 
 print: 'fmt.Println' PARENTESIS_ABRE expr PARENTESIS_CIERRA ;
@@ -72,6 +74,10 @@ instruccion_for: 'for' expr LLAVE_ABRE listainstrucciones LLAVE_CIERRA ;
 
 instruccion_forcondicional : 'for' asignacion ';' expr ';' incrementoDecremento LLAVE_ABRE listainstrucciones LLAVE_CIERRA ;
 
+instruccion_break: 'break' ;
+
+instruccion_continue: 'continue' ;
+
 tipo: 'int'
     | 'float64'
     | 'string'
@@ -79,7 +85,7 @@ tipo: 'int'
     | 'rune'
     ;
 
-instruccion_if: 'if' PARENTESIS_ABRE expr PARENTESIS_CIERRA LLAVE_ABRE listainstrucciones LLAVE_CIERRA 
+instruccion_if: 'if'  expr  LLAVE_ABRE listainstrucciones LLAVE_CIERRA 
                 ( 'else' (instruccion_if | LLAVE_ABRE listainstrucciones LLAVE_CIERRA) )?;
 
 instruccion_switch: 'switch' expr  LLAVE_ABRE 

@@ -90,6 +90,18 @@ public interface IAnalizadorLexicoVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <return>The visitor result.</return>
 	Result VisitInstruccion_forcondicional([NotNull] AnalizadorLexicoParser.Instruccion_forcondicionalContext context);
 	/// <summary>
+	/// Visit a parse tree produced by <see cref="AnalizadorLexicoParser.instruccion_break"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitInstruccion_break([NotNull] AnalizadorLexicoParser.Instruccion_breakContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="AnalizadorLexicoParser.instruccion_continue"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitInstruccion_continue([NotNull] AnalizadorLexicoParser.Instruccion_continueContext context);
+	/// <summary>
 	/// Visit a parse tree produced by <see cref="AnalizadorLexicoParser.tipo"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>

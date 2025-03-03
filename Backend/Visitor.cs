@@ -34,6 +34,14 @@ namespace analyzer
             ));
         }
 
+        // Clases de excepciones para control de flujo
+        private bool breakFlag = false;
+        private bool continueFlag = false;
+        
+        private void resetFlags() {
+            breakFlag = false;
+            continueFlag = false;
+        }
         /* INICIO */
         public override Object VisitInicio([NotNull] AnalizadorLexicoParser.InicioContext context)
         {
@@ -77,6 +85,10 @@ namespace analyzer
                     Visit(context.instruccion_for());
                 else if (context.instruccion_forcondicional() != null)
                     Visit(context.instruccion_forcondicional());
+                else if (context.instruccion_break() != null)
+                    Visit(context.instruccion_break());
+                else if (context.instruccion_continue() != null)
+                    Visit(context.instruccion_continue());
             }
             catch (Exception ex)
             {
@@ -768,6 +780,11 @@ namespace analyzer
 
                         Visit(casoContext.listainstrucciones());
 
+                        if (breakFlag) {
+                            resetFlags();
+                            break;
+                        }
+
                         pilaEntornos.Pop();
                         pilaEntornos.Peek().punteroASiguiente = null;
 
@@ -869,7 +886,6 @@ namespace analyzer
                 pilaEntornos.Peek().punteroASiguiente = entornoFor;
                 pilaEntornos.Push(entornoFor);
 
-                // Inicialización
                 if (context.expr != null)
                 {
                 
@@ -885,12 +901,26 @@ namespace analyzer
 
                 while ((bool)exprResult.Valor)
                 {
+
                     // Bloque de instrucciones
                     Visit(context.listainstrucciones());
-                    
+
+                    if(breakFlag)
+                    {
+                        resetFlags();
+                        break;
+                    }
+
+                    if(continueFlag)
+                    {
+                        resetFlags();
+                        expr = Visit(context.expr());
+                        continue;
+                    }
+ 
                     // Evaluar la condición nuevamente
                     expr = Visit(context.expr());
-                    exprResult = ConvertirANativo(expr, context.Start);
+                    exprResult = ConvertirANativo(expr, context.expr().Start);
                 }
 
                 pilaEntornos.Pop();
@@ -917,10 +947,8 @@ namespace analyzer
                 pilaEntornos.Peek().punteroASiguiente = entornoFor;
                 pilaEntornos.Push(entornoFor);
 
-                // 1. Inicialización
                 Visit(context.asignacion());
 
-                // 2. Condición
                 var expr = Visit(context.expr());
                 Nativo exprResult = ConvertirANativo(expr, context.expr().Start);
 
@@ -930,16 +958,24 @@ namespace analyzer
                     return false;
                 }
 
-                // 3. Bucle while
                 while ((bool)exprResult.Valor)
                 {
                     // Bloque de instrucciones
                     Visit(context.listainstrucciones());
 
-                    // 4. Incremento/Decremento
+                    if(breakFlag)
+                    {
+                        resetFlags();
+                        break;
+                    }
+
+                    if(continueFlag)
+                    {
+                        resetFlags();
+                    }
+
                     Visit(context.incrementoDecremento());
 
-                    // Evaluar la condición nuevamente
                     expr = Visit(context.expr());
                     exprResult = ConvertirANativo(expr, context.expr().Start);
                 }
@@ -957,6 +993,22 @@ namespace analyzer
         }
         //FOR PARA LISTAS
         /*FIN SENTENCIAS DE FLUJO*/
+
+
+        //DECORADORES
+        //CONTINUE
+        public override object VisitInstruccion_break([NotNull] AnalizadorLexicoParser.Instruccion_breakContext context)
+        {
+            breakFlag = true;
+            return null;
+        }
+        //BREAK
+        public override object VisitInstruccion_continue([NotNull] AnalizadorLexicoParser.Instruccion_continueContext context)
+        {
+            continueFlag = true;
+            return null;
+        }
+        /*FIN DECORADORES*/
 
 
         /* IMPRIMIR */

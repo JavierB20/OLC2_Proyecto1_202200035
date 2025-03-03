@@ -151,6 +151,30 @@ public partial class AnalizadorLexicoBaseListener : IAnalizadorLexicoListener {
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitInstruccion_forcondicional([NotNull] AnalizadorLexicoParser.Instruccion_forcondicionalContext context) { }
 	/// <summary>
+	/// Enter a parse tree produced by <see cref="AnalizadorLexicoParser.instruccion_break"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterInstruccion_break([NotNull] AnalizadorLexicoParser.Instruccion_breakContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="AnalizadorLexicoParser.instruccion_break"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitInstruccion_break([NotNull] AnalizadorLexicoParser.Instruccion_breakContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="AnalizadorLexicoParser.instruccion_continue"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterInstruccion_continue([NotNull] AnalizadorLexicoParser.Instruccion_continueContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="AnalizadorLexicoParser.instruccion_continue"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitInstruccion_continue([NotNull] AnalizadorLexicoParser.Instruccion_continueContext context) { }
+	/// <summary>
 	/// Enter a parse tree produced by <see cref="AnalizadorLexicoParser.tipo"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>

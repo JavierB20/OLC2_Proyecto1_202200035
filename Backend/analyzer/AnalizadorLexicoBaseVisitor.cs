@@ -129,6 +129,26 @@ public partial class AnalizadorLexicoBaseVisitor<Result> : AbstractParseTreeVisi
 	/// <return>The visitor result.</return>
 	public virtual Result VisitInstruccion_forcondicional([NotNull] AnalizadorLexicoParser.Instruccion_forcondicionalContext context) { return VisitChildren(context); }
 	/// <summary>
+	/// Visit a parse tree produced by <see cref="AnalizadorLexicoParser.instruccion_break"/>.
+	/// <para>
+	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
+	/// on <paramref name="context"/>.
+	/// </para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	public virtual Result VisitInstruccion_break([NotNull] AnalizadorLexicoParser.Instruccion_breakContext context) { return VisitChildren(context); }
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="AnalizadorLexicoParser.instruccion_continue"/>.
+	/// <para>
+	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
+	/// on <paramref name="context"/>.
+	/// </para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	public virtual Result VisitInstruccion_continue([NotNull] AnalizadorLexicoParser.Instruccion_continueContext context) { return VisitChildren(context); }
+	/// <summary>
 	/// Visit a parse tree produced by <see cref="AnalizadorLexicoParser.tipo"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
