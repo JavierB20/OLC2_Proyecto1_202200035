@@ -83,6 +83,24 @@ public interface IAnalizadorLexicoVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <return>The visitor result.</return>
 	Result VisitInstruccion_if([NotNull] AnalizadorLexicoParser.Instruccion_ifContext context);
 	/// <summary>
+	/// Visit a parse tree produced by <see cref="AnalizadorLexicoParser.instruccion_switch"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitInstruccion_switch([NotNull] AnalizadorLexicoParser.Instruccion_switchContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="AnalizadorLexicoParser.caso"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitCaso([NotNull] AnalizadorLexicoParser.CasoContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="AnalizadorLexicoParser.caso_default"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitCaso_default([NotNull] AnalizadorLexicoParser.Caso_defaultContext context);
+	/// <summary>
 	/// Visit a parse tree produced by the <c>operadorLogico</c>
 	/// labeled alternative in <see cref="AnalizadorLexicoParser.expr"/>.
 	/// </summary>

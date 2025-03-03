@@ -116,6 +116,36 @@ public interface IAnalizadorLexicoListener : IParseTreeListener {
 	/// <param name="context">The parse tree.</param>
 	void ExitInstruccion_if([NotNull] AnalizadorLexicoParser.Instruccion_ifContext context);
 	/// <summary>
+	/// Enter a parse tree produced by <see cref="AnalizadorLexicoParser.instruccion_switch"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterInstruccion_switch([NotNull] AnalizadorLexicoParser.Instruccion_switchContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="AnalizadorLexicoParser.instruccion_switch"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitInstruccion_switch([NotNull] AnalizadorLexicoParser.Instruccion_switchContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="AnalizadorLexicoParser.caso"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterCaso([NotNull] AnalizadorLexicoParser.CasoContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="AnalizadorLexicoParser.caso"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitCaso([NotNull] AnalizadorLexicoParser.CasoContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="AnalizadorLexicoParser.caso_default"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterCaso_default([NotNull] AnalizadorLexicoParser.Caso_defaultContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="AnalizadorLexicoParser.caso_default"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitCaso_default([NotNull] AnalizadorLexicoParser.Caso_defaultContext context);
+	/// <summary>
 	/// Enter a parse tree produced by the <c>operadorLogico</c>
 	/// labeled alternative in <see cref="AnalizadorLexicoParser.expr"/>.
 	/// </summary>

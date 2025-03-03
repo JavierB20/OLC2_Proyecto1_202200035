@@ -52,6 +52,7 @@ instruccion: print
             | variables 
             | asignacion 
             | instruccion_if
+            | instruccion_switch
             ;
 
 print: 'fmt.Println' PARENTESIS_ABRE expr PARENTESIS_CIERRA ;
@@ -71,6 +72,14 @@ tipo: 'int'
 instruccion_if: 'if' PARENTESIS_ABRE expr PARENTESIS_CIERRA LLAVE_ABRE listainstrucciones LLAVE_CIERRA 
                 ( 'else' (instruccion_if | LLAVE_ABRE listainstrucciones LLAVE_CIERRA) )?;
 
+instruccion_switch: 'switch' expr  LLAVE_ABRE 
+                    (caso)* 
+                    (caso_default)? 
+                    LLAVE_CIERRA;
+
+caso: 'case' expr ':' listainstrucciones;
+
+caso_default: 'default' ':' listainstrucciones;
 
 expr: '(' expr ')' #expreParentesis
     | '[' expr ']' #expreCorchetes

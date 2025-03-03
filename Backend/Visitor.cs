@@ -69,6 +69,8 @@ namespace analyzer
                     Visit(context.asignacion());
                 else if (context.instruccion_if() != null)
                     Visit(context.instruccion_if());
+                else if (context.instruccion_switch != null)
+                    Visit(context.instruccion_switch());
             }
             catch (Exception ex)
             {
@@ -702,6 +704,104 @@ namespace analyzer
                 return false;
             }
         }
+        /* INSTRUCCION SWITCH*/
+        public override object VisitInstruccion_switch([NotNull] AnalizadorLexicoParser.Instruccion_switchContext context)
+        {
+            try
+            {
+                var expr = Visit(context.expr());
+                Nativo switchExpr = ConvertirANativo(expr, context.Start);
+
+                // Bandera para saber si algún caso coincidió
+                bool casoCumplido = false;
+
+                // Recorrer todos los casos
+                for (int i = 0; i < context.caso().Length; i++)
+                {
+                    var casoContext = context.caso(i);
+                    var casoExpr = Visit(casoContext.expr());
+                    Nativo casoValue = ConvertirANativo(casoExpr, casoContext.expr().Start);
+
+                    // Verificar que los tipos sean comparables
+                    if (switchExpr.Tipo != casoValue.Tipo)
+                    {
+                        AddSemanticError($"Tipo de caso ({casoValue.Tipo}) no coincide con el tipo de la expresión del switch ({switchExpr.Tipo})", 
+                                        casoContext.expr().Start);
+                        continue;
+                    }
+
+                    bool coincide = false;
+                    
+                    switch (switchExpr.Tipo)
+                    {
+                        case TipoDato.INT:
+                            coincide = (int)switchExpr.Valor == (int)casoValue.Valor;
+                            break;
+                        case TipoDato.FLOAT64:
+                            coincide = (decimal)switchExpr.Valor == (decimal)casoValue.Valor;
+                            break;
+                        case TipoDato.STRING:
+                            coincide = switchExpr.Valor.ToString() == casoValue.Valor.ToString();
+                            break;
+                        case TipoDato.BOOL:
+                            coincide = (bool)switchExpr.Valor == (bool)casoValue.Valor;
+                            break;
+                        case TipoDato.RUNE: 
+                            coincide = switchExpr.Valor.ToString() == casoValue.Valor.ToString();
+                            break;
+                        default:
+                            AddSemanticError($"Tipo de dato no soportado en switch: {switchExpr.Tipo}", context.expr().Start);
+                            break;
+                    }
+
+                    if (coincide)
+                    {
+                        EntornoDTO entornoCaso = new EntornoDTO("Case", pilaEntornos.Peek());
+                        pilaEntornos.Peek().punteroASiguiente = entornoCaso;
+                        pilaEntornos.Push(entornoCaso);
+
+                        Visit(casoContext.listainstrucciones());
+
+                        pilaEntornos.Pop();
+                        pilaEntornos.Peek().punteroASiguiente = null;
+
+                        casoCumplido = true;
+                        break; 
+                    }
+                }
+
+                // Ejecucion de Default; sino hay coicidencias
+                if (!casoCumplido && context.caso_default() != null)
+                {
+                    EntornoDTO entornoDefault = new EntornoDTO("Default", pilaEntornos.Peek());
+                    pilaEntornos.Peek().punteroASiguiente = entornoDefault;
+                    pilaEntornos.Push(entornoDefault);
+
+                    Visit(context.caso_default().listainstrucciones());
+
+                    pilaEntornos.Pop();
+                    pilaEntornos.Peek().punteroASiguiente = null;
+                }
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                AddSemanticError($"Error en instrucción switch: {ex.Message}", context.Start);
+                return false;
+            }
+        }
+
+        public override object VisitCaso([NotNull] AnalizadorLexicoParser.CasoContext context)
+        {
+            return Visit(context.listainstrucciones());
+        }
+
+        public override object VisitCaso_default([NotNull] AnalizadorLexicoParser.Caso_defaultContext context)
+        {
+            return Visit(context.listainstrucciones());
+        }
+        /*FIN SENTENCIAS DE CONTROL*/
 
 
         /* IMPRIMIR */
@@ -729,14 +829,6 @@ namespace analyzer
         }
 
 
-
-
-
-
-
-
-
-
         // //AUXILIARES
         private Nativo ConvertirANativo(object valor, IToken token)
         {
@@ -761,45 +853,6 @@ namespace analyzer
                 throw new Exception($"Tipo de dato no soportado para operación aritmética: {valor.GetType().Name}");
             }
         }
-
-
-
-        // public bool TipoCompatible(string tipo, object valor)
-        // {
-        //     try
-        //     {
-        //         return tipo switch
-        //         {
-        //             "int" => valor is int,
-        //             "float64" => valor is double || valor is int, // int can be assigned to float64
-        //             "string" => valor is string,
-        //             "bool" => valor is bool,
-        //             "rune" => valor is string && ((string)valor).Length == 1,
-        //             _ => throw new Exception("Tipo desconocido")
-        //         };
-        //     }
-        //     catch
-        //     {
-        //         return false;
-        //     }
-        // }
-
-        // private bool AreComparable(object left, object right)
-        // {
-        //     // Numbers can be compared with numbers
-        //     if ((left is int || left is double) && (right is int || right is double))
-        //         return true;
-                
-        //     // Strings can be compared with strings
-        //     if (left is string && right is string)
-        //         return true;
-                
-        //     // Booleans can be compared with booleans
-        //     if (left is bool && right is bool)
-        //         return true;
-                
-        //     return false;
-        // }
         // //FINAUXILIARES
     }
 }

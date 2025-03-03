@@ -137,6 +137,42 @@ public partial class AnalizadorLexicoBaseListener : IAnalizadorLexicoListener {
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitInstruccion_if([NotNull] AnalizadorLexicoParser.Instruccion_ifContext context) { }
 	/// <summary>
+	/// Enter a parse tree produced by <see cref="AnalizadorLexicoParser.instruccion_switch"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterInstruccion_switch([NotNull] AnalizadorLexicoParser.Instruccion_switchContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="AnalizadorLexicoParser.instruccion_switch"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitInstruccion_switch([NotNull] AnalizadorLexicoParser.Instruccion_switchContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="AnalizadorLexicoParser.caso"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterCaso([NotNull] AnalizadorLexicoParser.CasoContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="AnalizadorLexicoParser.caso"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitCaso([NotNull] AnalizadorLexicoParser.CasoContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="AnalizadorLexicoParser.caso_default"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterCaso_default([NotNull] AnalizadorLexicoParser.Caso_defaultContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="AnalizadorLexicoParser.caso_default"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitCaso_default([NotNull] AnalizadorLexicoParser.Caso_defaultContext context) { }
+	/// <summary>
 	/// Enter a parse tree produced by the <c>operadorLogico</c>
 	/// labeled alternative in <see cref="AnalizadorLexicoParser.expr"/>.
 	/// <para>The default implementation does nothing.</para>
