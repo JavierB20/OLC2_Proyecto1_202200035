@@ -43,7 +43,6 @@ namespace analyzer
             }
             return true;
         }
-
         public override Object VisitListainstrucciones([NotNull] AnalizadorLexicoParser.ListainstruccionesContext context)
         {
             if (context.instruccion() == null)
@@ -55,7 +54,6 @@ namespace analyzer
             }
             return true;
         }
-
         public override Object VisitInstruccion([NotNull] AnalizadorLexicoParser.InstruccionContext context)
         {
             if (context == null)
@@ -69,8 +67,8 @@ namespace analyzer
                     Visit(context.variables());
                 else if (context.asignacion() != null)
                     Visit(context.asignacion());
-                // else if (context.instruccion_if() != null)
-                //     Visit(context.instruccion_if());
+                else if (context.instruccion_if() != null)
+                    Visit(context.instruccion_if());
             }
             catch (Exception ex)
             {
@@ -473,20 +471,7 @@ namespace analyzer
                 return null;
             }
         }
-        public override Object VisitIdExpresion([NotNull] AnalizadorLexicoParser.IdExpresionContext context)
-        {
-            EntornoDTO entorno = pilaEntornos.Peek();
-            string variableName = context.ID().GetText();
-            SimbolosDTO? simbolo = entorno.buscarVariable(variableName);
-            
-            if (simbolo != null)
-            {
-                return simbolo.valor;
-            }
-            
-            AddSemanticError($"Variable '{variableName}' no ha sido declarada", context.Start);
-            return "NULL";
-        }
+        /*ASIGNACION*/
         public override Object VisitAsignacionVar([NotNull] AnalizadorLexicoParser.AsignacionVarContext context)
         {
             try
@@ -549,28 +534,30 @@ namespace analyzer
                             return false;
                         }
 
-                        // Verificar compatibilidad de tipos
                         if (simbolo.tipo.ToUpper() != ((Nativo)valor).Tipo.ToString())
                         {
                             AddSemanticError($"Tipo de dato incompatible en asignación con suma a variable '{nombreVariable}'. Se esperaba {simbolo.tipo}", context.Start);
                             return false;
                         }
+                            
+                        Nativo valorNativo = (Nativo)valor;
+                        Nativo simboloNativo = (Nativo)simbolo.valor;
 
-                        // Realizar la suma
-                        if (simbolo.valor is int && valor is int)
+                        if (simboloNativo.Tipo == TipoDato.INT)
                         {
-                            int valorActualizado = (int)simbolo.valor + (int)valor;
-                            entorno.actualizarValorSimbolo(nombreVariable, valorActualizado);
+                            int valorActual = (int)simboloNativo.Valor;
+                            int valorSumar = (int)valorNativo.Valor;
+                            int resultado = valorActual + valorSumar;
+
+                            entorno.actualizarValorSimbolo(nombreVariable, new Nativo(resultado, TipoDato.INT, context.Start.Line, context.Start.Column));
                         }
-                        else if (simbolo.valor is double && valor is double)
+                        else if (simboloNativo.Tipo == TipoDato.FLOAT64)
                         {
-                            double valorActualizado = (double)simbolo.valor + (double)valor;
-                            entorno.actualizarValorSimbolo(nombreVariable, valorActualizado);
-                        }
-                        else if (simbolo.valor is string && valor is string)
-                        {
-                            string valorActualizado = (string)simbolo.valor + (string)valor;
-                            entorno.actualizarValorSimbolo(nombreVariable, valorActualizado);
+                            decimal valorActual = (decimal)simboloNativo.Valor;
+                            decimal valorSumar = (decimal)valorNativo.Valor;
+                            decimal resultado = valorActual + valorSumar;
+
+                            entorno.actualizarValorSimbolo(nombreVariable, new Nativo(resultado, TipoDato.FLOAT64, context.Start.Line, context.Start.Column));
                         }
                         else
                         {
@@ -586,23 +573,30 @@ namespace analyzer
                             return false;
                         }
 
-                        // Verificar compatibilidad de tipos
-                        if (simbolo.tipo.ToUpper() != ((Nativo)valor).Tipo.ToString())
+                        else if (simbolo.tipo.ToUpper() != ((Nativo)valor).Tipo.ToString())
                         {
                             AddSemanticError($"Tipo de dato incompatible en asignación con resta a variable '{nombreVariable}'. Se esperaba {simbolo.tipo}", context.Start);
                             return false;
                         }
 
-                        // Realizar la resta
-                        if (simbolo.valor is int && valor is int)
+                        valorNativo = (Nativo)valor;
+                        simboloNativo = (Nativo)simbolo.valor;
+
+                        if (simboloNativo.Tipo == TipoDato.INT)
                         {
-                            int valorActualizado = (int)simbolo.valor - (int)valor;
-                            entorno.actualizarValorSimbolo(nombreVariable, valorActualizado);
+                            int valorActual = (int)simboloNativo.Valor;
+                            int valorRestar = (int)valorNativo.Valor;
+                            int resultado = valorActual - valorRestar;
+
+                            entorno.actualizarValorSimbolo(nombreVariable, new Nativo(resultado, TipoDato.INT, context.Start.Line, context.Start.Column));
                         }
-                        else if (simbolo.valor is double && valor is double)
+                        else if (simboloNativo.Tipo == TipoDato.FLOAT64)
                         {
-                            double valorActualizado = (double)simbolo.valor - (double)valor;
-                            entorno.actualizarValorSimbolo(nombreVariable, valorActualizado);
+                            decimal valorActual = (decimal)simboloNativo.Valor;
+                            decimal valorRestar = (decimal)valorNativo.Valor;
+                            decimal resultado = valorActual - valorRestar;
+
+                            entorno.actualizarValorSimbolo(nombreVariable, new Nativo(resultado, TipoDato.FLOAT64, context.Start.Line, context.Start.Column));
                         }
                         else
                         {
@@ -623,7 +617,92 @@ namespace analyzer
                 return false;
             }
         }
-/*FIN DE VARIABLES*/
+        public override Object VisitIdExpresion([NotNull] AnalizadorLexicoParser.IdExpresionContext context)
+        {
+            EntornoDTO entorno = pilaEntornos.Peek();
+            string variableName = context.ID().GetText();
+            SimbolosDTO? simbolo = entorno.buscarVariable(variableName);
+            
+            if (simbolo != null)
+            {
+                return simbolo.valor;
+            }
+            
+            AddSemanticError($"Variable '{variableName}' no ha sido declarada", context.Start);
+            return "NULL";
+        }
+        public Object ValorPorDefecto(string tipo)
+        {
+            return tipo switch
+            {
+                "int" => 0,
+                "float64" => 0.0,
+                "string" => "",
+                "bool" => false,
+                "rune" => "\0",
+                _ => throw new Exception($"Tipo desconocido: {tipo}")
+            };
+        }
+        /*FIN DE VARIABLES*/
+
+
+        //SENTENCIAS DE CONTROL
+        /* INSTUCCION IF */
+        public override object VisitInstruccion_if([NotNull] AnalizadorLexicoParser.Instruccion_ifContext context)
+        {
+            try
+            {
+                var expr = Visit(context.expr());
+                Nativo exprResult = ConvertirANativo(expr, context.Start);
+
+                if (exprResult.Tipo != TipoDato.BOOL)
+                {
+                    AddSemanticError("La expresión en la instrucción if debe ser de tipo booleano", context.expr().Start);
+                    return false;
+                }
+
+                if ((bool)exprResult.Valor)
+                {
+                    EntornoDTO entornoIf = new EntornoDTO("If", pilaEntornos.Peek());
+                    pilaEntornos.Peek().punteroASiguiente = entornoIf;
+                    pilaEntornos.Push(entornoIf);
+
+                    Visit(context.listainstrucciones(0)); 
+
+                    pilaEntornos.Pop();
+                    pilaEntornos.Peek().punteroASiguiente = null;
+                }
+                else if (context.GetText().Contains("else"))
+                {
+                    // Verificar si el else contiene otro if o simplemente un bloque de código
+                    if (context.instruccion_if() != null)
+                    {
+                        // Es un else if, visitar la instrucción if dentro del else
+                        Visit(context.instruccion_if());
+                    }
+                    else
+                    {
+                        // Es un else con un bloque de instrucciones
+                        EntornoDTO entornoElse = new EntornoDTO("Else", pilaEntornos.Peek());
+                        pilaEntornos.Peek().punteroASiguiente = entornoElse;
+                        pilaEntornos.Push(entornoElse);
+
+                        Visit(context.listainstrucciones(1));
+
+                        pilaEntornos.Pop();
+                        pilaEntornos.Peek().punteroASiguiente = null;
+                    }
+                }
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                AddSemanticError($"Error en instrucción if: {ex.Message}", context.Start);
+                return false;
+            }
+        }
+
 
         /* IMPRIMIR */
         public override Object VisitPrint([NotNull] AnalizadorLexicoParser.PrintContext context)
@@ -651,35 +730,6 @@ namespace analyzer
 
 
 
-        // /* INSTUCCION IF */
-        // public override object VisitInstruccion_if([NotNull] AnalizadorLexicoParser.Instruccion_ifContext context)
-        // {
-        //     try
-        //     {
-        //         var exprResult = Visit(context.expr());
-        //         if (!(exprResult is bool))
-        //         {
-        //             AddSemanticError("La expresión en la instrucción if debe ser de tipo booleano", context.expr().Start);
-        //             return false;
-        //         }
-                
-        //         if ((bool)exprResult)
-        //         {
-        //             EntornoDTO entorno = new EntornoDTO("If", pilaEntornos.Peek());
-        //             pilaEntornos.Peek().punteroASiguiente = entorno;
-        //             pilaEntornos.Push(entorno);
-        //             VisitListainstrucciones(context.listainstrucciones());
-        //             pilaEntornos.Pop();
-        //             pilaEntornos.Peek().punteroASiguiente = null;
-        //         }
-        //         return true;
-        //     }
-        //     catch (Exception ex)
-        //     {
-        //         AddSemanticError($"Error en instrucción if: {ex.Message}", context.Start);
-        //         return false;
-        //     }
-        // }
 
 
 
@@ -710,18 +760,6 @@ namespace analyzer
             {
                 throw new Exception($"Tipo de dato no soportado para operación aritmética: {valor.GetType().Name}");
             }
-        }
-        public Object ValorPorDefecto(string tipo)
-        {
-            return tipo switch
-            {
-                "int" => 0,
-                "float64" => 0.0,
-                "string" => "",
-                "bool" => false,
-                "rune" => "\0",
-                _ => throw new Exception($"Tipo desconocido: {tipo}")
-            };
         }
 
 

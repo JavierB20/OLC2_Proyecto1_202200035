@@ -25,6 +25,8 @@ PARENTESIS_ABRE: '(' ;
 PARENTESIS_CIERRA: ')' ;
 CORCHETE_ABRE: '[' ;
 CORCHETE_CIERRA: ']' ;
+LLAVE_ABRE: '{' ;
+LLAVE_CIERRA: '}' ;
 ASIGNACION_SUMA: '+=' ;
 ASIGNACION_RESTA: '-=' ;
 MAS: '+' ;
@@ -66,7 +68,9 @@ tipo: 'int'
     | 'rune'
     ;
 
-instruccion_if: 'if' PARENTESIS_ABRE expr PARENTESIS_CIERRA 'then' listainstrucciones 'end if';
+instruccion_if: 'if' PARENTESIS_ABRE expr PARENTESIS_CIERRA LLAVE_ABRE listainstrucciones LLAVE_CIERRA 
+                ( 'else' (instruccion_if | LLAVE_ABRE listainstrucciones LLAVE_CIERRA) )?;
+
 
 expr: '(' expr ')' #expreParentesis
     | '[' expr ']' #expreCorchetes
